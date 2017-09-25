@@ -45,5 +45,13 @@ public interface IRole {
     public boolean removeUser(int roCode, int usrCode);
     
     public boolean removeUser(UserRole userrole);
+     
+    public boolean assignToBranch(int brCode, int roCode);
+
+    public boolean assignToBranch(RoleBranch roleBranch);
+     
+    public boolean removeFromBranch(RoleBranch roleBranch);
+
+    public boolean removeFromBranch(int brCode, int roCode);
           
 }

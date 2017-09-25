@@ -8,6 +8,7 @@ package StockManagement.Services.Resources;
 import StockManagement.ObjectModel.MangeObject.BrandController;
 import StockManagement.ObjectModel.ObjectInterface.IBrand;
 import StockManagement.ObjectModel.ValueObject.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -64,6 +65,66 @@ public class BrandResource {
     public boolean delete(int brandCode) {
         return _controller.delete(brandCode);
     }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/updateProduct")
+    public boolean updateProduct(Product Product) {
+        return _controller.updateProduct(Product);
+    }
+
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/deleteProductById")
+    public boolean deleteProduct(int PrCode) {
+        return _controller.deleteProduct(PrCode);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/addProduct")
+    public int addProduct(Product Product) {
+        return _controller.addProduct(Product);
+    }
+   
+    
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/products/{BrdCode}")
+    public List<Product> getProducts(@PathParam("BrdCode") int BrdCode) {
+    
+        List<Product> Products = _controller.getProducts(BrdCode);
+        if (Products == null || Products.isEmpty()) {
+            return null;
+        }
+        List<Product> newList = new ArrayList();
+        for (int i = 0; i < Products.size(); i++) {
+            Product original = Products.get(i);
+            Product copy = new Product();
+            copy.setPrCode(original.getPrCode());
+            copy.setPrBarCode(original.getPrBarCode());
+            copy.setPrName(original.getPrName());
+            copy.setPrType(original.getPrType());
+            copy.setPrFamily(original.getPrFamily());
+             copy.setSupplier(original.getSupplier());
+            copy.setBrand(original.getBrand());
+            copy.setPrSeason(original.getPrSeason());
+            copy.setCostPrice(original.getCostPrice());
+            copy.setSellingPrice(original.getSellingPrice());
+            copy.setPrStatus(original.isPrStatus());
+            newList.add(copy);
+        }
+        return newList;
+    }
+    
+    
+ 
+     
     
        
 //    @GET

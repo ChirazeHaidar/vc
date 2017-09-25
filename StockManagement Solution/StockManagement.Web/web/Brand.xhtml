@@ -17,7 +17,7 @@
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-
+                <p:ajax  id="showProductsEvent" event="rowSelect" listener="#{brandBean.onRowSelect}" update=":ProductForm:tabProduct:ProductTable"  />
                 <p:column headerText="Code">${itemBrand.brdCode}</p:column>
                 <p:column headerText="Name">${itemBrand.brdName}</p:column>
                 <p:column headerText="Date">${itemBrand.brdCreationDate}</p:column>
@@ -151,5 +151,111 @@
         </p:dialog>
       
     </ui:define>
-    
+  
+        <ui:define name="right" >
+
+        <h:form id="ProductForm">
+            <p:accordionPanel id="tabProduct">
+                <p:tab title="Products management">
+                    <h:panelGrid columns="1" >
+                        <p:carousel id="ProductTable" value="#{BrandBean.Products}"
+                                    var="itemProduct" itemStyle="height:150px;" 
+                                    numVisible="1" easing="easeOutBounce"  circular="true"  >
+                            <h:panelGrid columns="2" style="width:100%" columnClasses="label,value" class="tableHeader">
+                                <f:facet name="header">
+                                    <h:outputText value="#{itemProduct.prName}" />
+                                </f:facet>
+
+                                <h:outputText value="Code" />
+                                <h:outputText value="#{itemProduct.prCode}" style="color: blue"/>
+
+                                <h:outputText value="Cost Price" />
+                                <h:outputText value="#{itemProduct.costPrice}" style="color: blue"/>
+
+                                <h:outputText value="Selling Price" />
+                                <h:outputText value="$#{itemProduct.sellingPrice} " style="color: blue"/>
+
+                                <f:facet name="footer">
+                                    <p:commandButton update=":infoProductPanel" oncomplete="PF('infoProductDialog').show()" icon="ui-icon-search" title="View">
+                                        <f:setPropertyActionListener  value="#{itemProduct}" target="#{brandBean.selectedProduct}" />
+                                    </p:commandButton>
+                                    <p:commandButton update=":formEditProduct:editProductPanel" oncomplete="PF('editProductDialog').show()" icon="ui-icon-pencil" title="Edit">
+                                        <f:setPropertyActionListener  value="#{itemProduct}" target="#{brandBean.selectedProduct}" />
+                                    </p:commandButton>
+                                    <p:commandButton update=":deleteProductPanel" oncomplete="PF('deleteProductDialog').show()" icon="ui-icon-trash" title="Delete">
+                                        <f:setPropertyActionListener  value="#{itemProduct}" target="#{brandBean.selectedProduct}" />
+                                    </p:commandButton>
+                                </f:facet>
+
+                            </h:panelGrid>
+                        </p:carousel>
+                    </h:panelGrid>
+                </p:tab>
+            </p:accordionPanel>
+        </h:form>
+        <p:dialog  header="Product info" widgetVar="infoProductDialog" appendTo="@(body)" modal="true" height="150" resizable="false">
+            <p:outputPanel id="infoProductPanel" style="text-align:center;">
+                <p:panelGrid  columns="2"  columnClasses="label,value">
+                    <h:outputText value="Name" />
+                    <h:outputText id="prName" value="#{brandBean.selectedProduct.prName}" />
+                    
+                     <h:outputText value="Code" />
+                    <h:outputText id="prCode" value="#{brandBean.selectedProduct.prCode}" />
+
+                    <h:outputText value="Cost Price" />
+                    <h:outputText id="costPrice" value="#{brandBean.selectedProduct.costPrice}" />
+
+                    <h:outputText value="Selling Price" />
+                    <h:outputText id="sellingPrice" value="#{brandBean.selectedProduct.sellingPrice}" />
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:dialog>
+        <p:dialog  header="Delete Product" widgetVar="deleteProductDialog" appendTo="@(body)" modal="true" height="150" resizable="false">
+            <p:outputPanel id="deleteProductPanel" style="text-align:center;">
+                <p:panelGrid  columns="2"  columnClasses="label,value">
+                    <h:outputText value="Name" />
+                    <h:outputText  value="#{brandBean.selectedProduct.prName}" />
+
+                      <h:outputText value="Code" />
+                    <h:outputText  value="#{brandBean.selectedProduct.prCode}" />
+
+                      <h:outputText value="Cost Price" />
+                    <h:outputText  value="#{brandBean.selectedProduct.costPrice}" />
+                    
+                   <h:outputText value="Selling Price" />
+                    <h:outputText  value="#{brandBean.selectedProduct.sellingPrice}" />
+                </p:panelGrid>
+                <p:commandButton id="btnDeleteProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('deleteProductDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{brandBean.deleteProduct}"  />
+                <p:blockUI block=":deleteProductPanel" trigger=":btnDeleteProduct">
+                    LOADING<br />
+                    <p:graphicImage name="./images/45.gif" />
+                </p:blockUI>
+            </p:outputPanel>
+        </p:dialog>
+        <p:dialog  header="Edit Product" widgetVar="editProductDialog" appendTo="@(body)" modal="true" height="150" resizable="false">
+            <h:form id="formEditProduct">
+                <p:outputPanel id="editProductPanel" style="text-align:center;">
+                    <p:panelGrid  columns="2"  columnClasses="label,value">
+                        <h:outputText value="Name" />
+                        <p:inputText id="brName" value="#{brandBean.selectedProduct.prName}" />
+
+                        <h:outputText value="Code" />
+                        <p:inputText id="prCode" value="#{brandBean.selectedProduct.prCode}" />
+
+                        <h:outputText value="Cost Price" />
+                        <p:inputText id="costPrice" value="#{brandBean.selectedProduct.costPrice}" />
+                        
+                        <h:outputText value="Selling Price" />
+                        <p:inputText id="sellingPrice" value="#{brandBean.selectedProduct.sellingPrice}" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton id="btnEditProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('editProductDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{brandBean.UpdateProduct}"  />
+                    <p:blockUI block=":formEditProduct:editProductPanel" trigger=":formEditProduct:btnEditProduct">
+                        LOADING<br />
+                        <p:graphicImage name="./images/45.gif" />
+                    </p:blockUI>
+                </p:outputPanel>
+            </h:form>
+        </p:dialog>
+    </ui:define>
 </ui:composition>

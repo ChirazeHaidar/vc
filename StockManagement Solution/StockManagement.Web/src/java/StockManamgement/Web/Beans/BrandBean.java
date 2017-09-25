@@ -6,6 +6,7 @@
 package StockManamgement.Web.Beans;
 
 import StockManagement.ObjectModel.ValueObject.Brand;
+import StockManagement.ObjectModel.ValueObject.Product;
 import StockManagement.Services.brandClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -28,7 +30,35 @@ public class BrandBean implements Serializable {
 
     private String BrandName;
     private Integer BrandCode;
+    private Product newProduct;
+    private List<Product> Products;
 
+    public List<Product> getProducts() {
+        return Products;
+    }
+
+    public void setProducts(List<Product> Products) {
+        this.Products = Products;
+    }
+     
+    public Product getNewProduct() {
+        return newProduct;
+    }
+
+    public void setNewProduct(Product newProduct) {
+        this.newProduct = newProduct;
+    }
+    private Product selectedProduct;
+      
+    public Product getSelectedProduct() {
+        return selectedProduct;
+    }
+
+    public void setSelectedProduct(Product selectedProduct) {
+        this.selectedProduct = selectedProduct;
+    }
+   
+      
     public String getBrandName() {
         return BrandName;
     }
@@ -53,7 +83,9 @@ public class BrandBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        refreshData();
+          refreshData();
+         newProduct = new Product();
+      
     }
 
     private void refreshData() {
@@ -110,4 +142,33 @@ public class BrandBean implements Serializable {
         refreshData();
         MessageView.Info("Info", "Brand " + selectedBrand.getBrdName()+ " deleted successfully.");
     }
+        
+        
+        public void addProduct() {
+        newProduct.setBrand(selectedBrand);
+        service.addProduct(newProduct, String.class);
+        MessageView.Info("Info", "Product saved successfully.");
+    }
+
+    public void updateProduct() {
+        selectedProduct.setBrand(selectedBrand);
+        service.updateProduct(selectedProduct, String.class);
+        MessageView.Info("Info", "Product updated successfully.");
+    }
+
+    public void deleteProduct() {
+        service.deleteProduct(selectedProduct.getPrCode(), String.class);
+        MessageView.Info("Info", "Product deleted successfully.");
+    }
+    
+       public void onRowSelect(SelectEvent event) {
+       if (event != null){
+          Integer BrdCode = ((Brand) event.getObject()).getBrdCode();
+        GenericType<List<Product>> gType = new GenericType<List<Product>>() {};
+          System.out.println("start");
+        Products = service.getProducts(gType, BrdCode);
+        System.out.println("MIKE " + Products.size());}
+    }
+        
+        
 }

@@ -18,7 +18,7 @@ public interface IBrand {
 
     public List<Brand> getAll();
 
-    public List<Product> getProducts(Integer brdCode);
+    public List<Product> getProducts(int brdCode);
             
     public int add(Brand brand);
 

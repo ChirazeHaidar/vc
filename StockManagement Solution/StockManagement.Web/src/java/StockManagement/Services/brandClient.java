@@ -56,10 +56,37 @@ public class brandClient {
         return webTarget.path("update").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
     
-
     public <T> T delete(Object requestEntity, Class<T> responseType) throws ClientErrorException {
         return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
+    
+      public <T> T deleteProduct(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("deleteProductById").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
+    }
+
+      public <T> T addProduct(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("addProduct").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+    }
+
+      public <T> T updateProduct(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("updateProduct").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+    }
+    
+       public <T> T getProducts(GenericType<T> responseType, int BrdCode) throws ClientErrorException {
+          DebugExceptionMapper x = new DebugExceptionMapper();
+      try {
+            
+          
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("products/{0}", new Object[]{BrdCode}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+   
+     } catch (Exception ex){
+          System.out.println("voila" + x.toResponse(ex));    
+        }
+     return null;
+    }
+
     
     public void close() {
         client.close();

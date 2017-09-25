@@ -46,7 +46,12 @@
                         <f:setPropertyActionListener value="#{itemCompany}" target="#{companyBean.selectedCompany}" />
                     </p:commandButton>
                 </p:column>
-
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton ajax="false" icon="ui-icon ui-icon-arrow"  action="stock" title="View Stock">
+                        
+                        <f:param id="comp_id"  name="comp_id" value="#{itemCompany.compCode}"  />
+                    </p:commandButton >
+                </p:column>
             </p:dataTable>
             <p:blockUI block=":mainForm:companyTable" trigger=":mainForm:companyTable">
                 LOADING<br />

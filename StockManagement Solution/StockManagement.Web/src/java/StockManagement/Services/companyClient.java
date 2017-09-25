@@ -22,14 +22,14 @@ import javax.ws.rs.core.GenericType;
  *        client.close();
  * </pre>
  *
- * @author mfaour
+ * @author Firas
  */
 @ManagedBean(name="companyClient")
 @ApplicationScoped
 public class companyClient {
 
-    private final WebTarget webTarget;
-    private final Client client;
+    private WebTarget webTarget;
+    private Client client;
     private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
 
     public companyClient() {
@@ -51,7 +51,7 @@ public class companyClient {
     }
 
     public <T> T updateStock(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("updateStock").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("updateStock").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public <T> T addBranch(Object requestEntity, Class<T> responseType) throws ClientErrorException {
@@ -83,7 +83,7 @@ public class companyClient {
     }
 
     public <T> T deleteStock(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("deleteStockById").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("deleteStockById").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public <T> T get(Class<T> responseType, String compCode) throws ClientErrorException {
@@ -93,7 +93,7 @@ public class companyClient {
     }
 
     public <T> T addStock(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("addStock").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("addStock").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public void close() {

@@ -229,11 +229,17 @@ public class CompanyController implements ICompany {
 
     @Override
     public Stock getStock(int compCode) {
-       List<Stock> stocks = _session.createQuery("From Stock where CompCode = "+compCode).list();
+       List<Stock> stocks = _session.createQuery("From Stock where compCode = "+compCode).list();
         if (null == stocks || stocks.isEmpty()) {
             return null;
         }
-        return stocks.get(0);
+       Stock original = stocks.get(0);
+        Stock copy = new Stock();
+        copy.setStkAddress(original.getStkAddress());
+        copy.setStkCode(original.getStkCode());
+        copy.setStkName(original.getStkName());
+        copy.setStkTel(original.getStkTel());
+        return copy;
     }
 
 }

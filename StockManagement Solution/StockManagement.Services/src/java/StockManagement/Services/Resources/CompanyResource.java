@@ -31,7 +31,7 @@ public class CompanyResource {
      * Creates a new instance of CompanyResource
      */
     public CompanyResource() {
-_controller = new CompanyController();
+        _controller = new CompanyController();
     }
 
     /**
@@ -46,14 +46,15 @@ _controller = new CompanyController();
         List<Company> companies = _controller.getAll();
         return companies;
     }
-     
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Path("/stock/{compCode}")
     public Stock getStock(@PathParam("compCode") int compCode) {
         return _controller.getStock(compCode);
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/code/{compCode}")
@@ -85,20 +86,19 @@ _controller = new CompanyController();
         return _controller.delete(compCode);
     }
 
-  /*  @POST
+    /*  @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/delete")
     public boolean delete(Company company) {
         return _controller.delete(company);
     }*/
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/addStock")
     public int addStock(Stock stock) {
-        return _controller.addStock( stock);
+        return _controller.addStock(stock);
     }
 
     /*@POST
@@ -108,7 +108,6 @@ _controller = new CompanyController();
     public boolean deleteStock(Stock stock) {
         return _controller.deleteStock(stock);
     }*/
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
@@ -140,7 +139,6 @@ _controller = new CompanyController();
     public boolean deleteBranch(Branch branch) {
         return _controller.deleteBranch(branch);
     }*/
-
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
@@ -157,12 +155,11 @@ _controller = new CompanyController();
         return _controller.updateBranch(branch);
     }
 
-   
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/branches/{compCode}")
     public List<Branch> getBranches(@PathParam("compCode") int compCode) {
-       /* List<Branch> branches = new ArrayList();
+        /* List<Branch> branches = new ArrayList();
         Company c = new Company();
         c.setCompCode(21);
         c.setCompDesc("sds");
@@ -177,8 +174,8 @@ _controller = new CompanyController();
             b.setBrCode(i);
             branches.add(b);
         }*/
-          
-          List<Branch> branches = _controller.getBranches(compCode);
+
+        List<Branch> branches = _controller.getBranches(compCode);
         if (branches == null || branches.isEmpty()) {
             return null;
         }
@@ -196,8 +193,8 @@ _controller = new CompanyController();
 
         }
         return newList;
-        
+
         //return branches;
     }
-     
+
 }

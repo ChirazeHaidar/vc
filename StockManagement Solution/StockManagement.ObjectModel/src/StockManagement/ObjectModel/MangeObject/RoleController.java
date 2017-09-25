@@ -219,5 +219,44 @@ public class RoleController implements IRole {
         UserController controller = new UserController();
         return controller.removeRole(userrole);
     }
+    
+@Override
+    public boolean assignToBranch(RoleBranch roleBranch) {
+        BranchController controller = new BranchController();
+        return controller.assignRole(roleBranch);
+    }
 
+    @Override
+    public boolean assignToBranch(int brCode,int roCode ) {
+        BranchController controller = new BranchController();
+        return controller.assignRole(brCode, roCode);
+    } 
+@Override
+    public boolean removeFromBranch(RoleBranch roleBranch) {
+        try {
+             if ( null == roleBranch || 
+                null == roleBranch.getRole()||
+                null == roleBranch.getBranch())
+            return false;
+             
+            Transaction tx = _session.beginTransaction();
+            _session.createQuery("delete from RoleBranch where RoCode= " + roleBranch.getRole().getRoCode() + " and BrCode = " + roleBranch.getBranch().getBrCode()).executeUpdate();
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            throw (e);
+        }
+    }
+
+    @Override
+    public boolean removeFromBranch(int brCode, int roCode) {
+        try {
+            Transaction tx = _session.beginTransaction();
+            _session.createQuery("delete from RoleBranch where RoCode= " + roCode + " and BrCode = " + brCode).executeUpdate();
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            throw (e);
+        }
+    }
 }

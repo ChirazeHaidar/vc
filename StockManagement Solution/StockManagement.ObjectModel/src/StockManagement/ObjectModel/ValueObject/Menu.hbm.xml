@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated September 26, 2017 11:35:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="StockManagement.ObjectModel.ValueObject.Menu" table="Menu" catalog="gestiondesbiens" optimistic-lock="version">
+        <id name="idMenu" type="java.lang.Integer">
+            <column name="idMenu" />
+            <generator class="identity" />
+        </id>
+        <property name="DisplayName" type="string">
+            <column name="DisplayName" length="50" />
+        </property>
+        <property name="Path" type="string">
+            <column name="Path" length="200"/>
+        </property>
+        <property name="IsSecured" type="boolean">
+            <column name="IsSecured" not-null="true" />
+        </property>
+
+    </class>
+</hibernate-mapping>

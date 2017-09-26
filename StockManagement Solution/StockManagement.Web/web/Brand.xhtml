@@ -17,7 +17,7 @@
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-                <p:ajax  id="showProductsEvent" event="rowSelect" listener="#{brandBean.onRowSelect}" update=":ProductForm:tabProduct:ProductTable"  />
+                <p:ajax  id="showProductsEvent"  event="rowSelect" listener="#{brandBean.onRowSelect}" update=":ProductForm:tabProduct:ProductTable"  />
                 <p:column headerText="Code">${itemBrand.brdCode}</p:column>
                 <p:column headerText="Name">${itemBrand.brdName}</p:column>
                 <p:column headerText="Date">${itemBrand.brdCreationDate}</p:column>
@@ -158,9 +158,9 @@
             <p:accordionPanel id="tabProduct">
                 <p:tab title="Products management">
                     <h:panelGrid columns="1" >
-                        <p:carousel id="ProductTable" value="#{BrandBean.Products}"
+                        <p:carousel id="ProductTable" value="#{brandBean.products}"
                                     var="itemProduct" itemStyle="height:150px;" 
-                                    numVisible="1" easing="easeOutBounce"  circular="true"  >
+                                    numVisible="1" easing="easeOutBounce"  circular="true">
                             <h:panelGrid columns="2" style="width:100%" columnClasses="label,value" class="tableHeader">
                                 <f:facet name="header">
                                     <h:outputText value="#{itemProduct.prName}" />
@@ -249,7 +249,7 @@
                         <p:inputText id="sellingPrice" value="#{brandBean.selectedProduct.sellingPrice}" />
                         
                     </p:panelGrid>
-                    <p:commandButton id="btnEditProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('editProductDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{brandBean.UpdateProduct}"  />
+                    <p:commandButton id="btnEditProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('editProductDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{brandBean.updateProduct()}"  />
                     <p:blockUI block=":formEditProduct:editProductPanel" trigger=":formEditProduct:btnEditProduct">
                         LOADING<br />
                         <p:graphicImage name="./images/45.gif" />

@@ -72,19 +72,17 @@ public class brandClient {
         return webTarget.path("updateProduct").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
     
+      
        public <T> T getProducts(GenericType<T> responseType, int BrdCode) throws ClientErrorException {
           DebugExceptionMapper x = new DebugExceptionMapper();
-      try {
-            
-          
-        WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("products/{0}", new Object[]{BrdCode}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
-   
-     } catch (Exception ex){
-          System.out.println("voila" + x.toResponse(ex));    
-        }
-     return null;
+            try {
+              WebTarget resource = webTarget;
+              resource = resource.path(java.text.MessageFormat.format("products/{0}", new Object[]{BrdCode}));
+              return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+           } catch (Exception ex){
+                System.out.println("voila" + x.toResponse(ex));    
+              }
+           return null;
     }
 
     

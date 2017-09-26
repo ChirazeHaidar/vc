@@ -81,18 +81,20 @@ public class BrandController implements IBrand {
     }
    
 
+    @Override
     public List<Product> getProducts(int brdCode) {
        if (brdCode <= 0) {
             return null;
         }
-        List<Product> products = _session.createQuery("From Product where BrdCode = "+brdCode).list();
+       List<Product> products = _session.createQuery("From Product where BrdCode = "+brdCode).list();
         if (null == products || products.isEmpty()) {
             return null;
         }
         return products;
     }
 
-    
+   
+
     @Override
     public int addProduct(Product product) {
         if ( null == product.getBrand() )

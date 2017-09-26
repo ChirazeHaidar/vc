@@ -18,6 +18,11 @@ public interface IBrand {
 
     public List<Brand> getAll();
 
+    /**
+     *
+     * @param brdCode
+     * @return
+     */
     public List<Product> getProducts(int brdCode);
             
     public int add(Brand brand);

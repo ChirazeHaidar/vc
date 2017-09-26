@@ -9,7 +9,9 @@ import StockManagement.ObjectModel.MangeObject.BrandController;
 import StockManagement.ObjectModel.ObjectInterface.IBrand;
 import StockManagement.ObjectModel.ValueObject.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -94,6 +96,7 @@ public class BrandResource {
     
     
     @GET
+    
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/products/{BrdCode}")
     public List<Product> getProducts(@PathParam("BrdCode") int BrdCode) {
@@ -107,13 +110,7 @@ public class BrandResource {
             Product original = Products.get(i);
             Product copy = new Product();
             copy.setPrCode(original.getPrCode());
-            copy.setPrBarCode(original.getPrBarCode());
             copy.setPrName(original.getPrName());
-            copy.setPrType(original.getPrType());
-            copy.setPrFamily(original.getPrFamily());
-             copy.setSupplier(original.getSupplier());
-            copy.setBrand(original.getBrand());
-            copy.setPrSeason(original.getPrSeason());
             copy.setCostPrice(original.getCostPrice());
             copy.setSellingPrice(original.getSellingPrice());
             copy.setPrStatus(original.isPrStatus());

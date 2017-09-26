@@ -10,6 +10,7 @@ import StockManagement.ObjectModel.ValueObject.Product;
 import StockManagement.Services.brandClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,14 +32,14 @@ public class BrandBean implements Serializable {
     private String BrandName;
     private Integer BrandCode;
     private Product newProduct;
-    private List<Product> Products;
+    private List<Product> products;
 
     public List<Product> getProducts() {
-        return Products;
+        return products;
     }
 
     public void setProducts(List<Product> Products) {
-        this.Products = Products;
+        this.products = Products;
     }
      
     public Product getNewProduct() {
@@ -84,8 +85,6 @@ public class BrandBean implements Serializable {
     @PostConstruct
     public void init() {
           refreshData();
-         newProduct = new Product();
-      
     }
 
     private void refreshData() {
@@ -165,10 +164,11 @@ public class BrandBean implements Serializable {
        if (event != null){
           Integer BrdCode = ((Brand) event.getObject()).getBrdCode();
         GenericType<List<Product>> gType = new GenericType<List<Product>>() {};
-          System.out.println("start");
-        Products = service.getProducts(gType, BrdCode);
-        System.out.println("MIKE " + Products.size());}
+       products = service.getProducts(gType, BrdCode);
+        setProducts(products);
     }
+     
+   
         
-        
+}
 }

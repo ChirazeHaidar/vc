@@ -10,7 +10,6 @@ import StockManagement.ObjectModel.ValueObject.Product;
 import StockManagement.Services.brandClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,6 +30,15 @@ public class BrandBean implements Serializable {
 
     private String BrandName;
     private Integer BrandCode;
+    private boolean BrandStatus;
+
+    public boolean isBrandStatus() {
+        return BrandStatus;
+    }
+
+    public void setBrandStatus(boolean BrandStatus) {
+        this.BrandStatus = BrandStatus;
+    }
     private Product newProduct;
     private List<Product> products;
 
@@ -100,8 +108,8 @@ public class BrandBean implements Serializable {
     public void add() {
         Brand newBrand = new Brand();
         newBrand.setBrdName(getBrandName());
-        newBrand.setBrdCode(getBrandCode());
-        newBrand.setBrdStatus(true);
+        //newBrand.setBrdCode(getBrandCode());
+        newBrand.setBrdStatus(isBrandStatus());
         newBrand.setBrdCreationDate(Calendar.getInstance().getTime());
         service.add(newBrand, String.class);
         refreshData();

@@ -4,7 +4,8 @@
                 template="./master/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
   <ui:define name="content">
         <h:form id="mainForm">
 
@@ -17,11 +18,14 @@
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-                <p:ajax  id="showProductsEvent"  event="rowSelect" listener="#{brandBean.onRowSelect}" update=":ProductForm:tabProduct:ProductTable"  />
+                <p:ajax  id="showProductsEvent" event="rowSelect" listener="#{brandBean.onRowSelect}" update=":ProductForm:tabProduct:ProductTable"  />
                 <p:column headerText="Code">${itemBrand.brdCode}</p:column>
                 <p:column headerText="Name">${itemBrand.brdName}</p:column>
                 <p:column headerText="Date">${itemBrand.brdCreationDate}</p:column>
-                <p:column headerText="Status">${itemBrand.brdStatus}</p:column>
+                  <p:column headerText="Status" rendered="${itemBrand.brdStatus eq 'true'}">Active</p:column>
+                <p:column headerText="Status" rendered="${not itemBrand.brdStatus eq 'true'}">Inactive</p:column>
+          
+       
                 
              <p:column style="width:32px;text-align: center">
 
@@ -40,7 +44,7 @@
                     </p:commandButton>
                 </p:column>               
             </p:dataTable>
-  <p:blockUI block=":mainForm:BrandTable" trigger=":mainForm:BrandTable">
+            <p:blockUI id="loading1" block=":mainForm:BrandTable" trigger=":mainForm:BrandTable">
                 LOADING<br />
                 <p:graphicImage name="./images/45.gif" />
             </p:blockUI>
@@ -51,9 +55,8 @@
                     <p:panelGrid  columns="2"  columnClasses="label,value" >
                         <h:outputText value="Name" />
                         <p:inputText id="BrandName" value="#{brandBean.brandName}" />
-
-                        <h:outputText value="Code" />
-                        <p:inputText id="brandCode" value="#{brandBean.brandCode}" />
+                         <p:selectBooleanButton value="#{brandBean.brandStatus}" offLabel="Inactive" onLabel="Active" />
+                  
                     </p:panelGrid>
                     <p:commandButton id="btnAdd" update=":mainForm:BrandTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{brandBean.add}"  />
                     <p:blockUI block=":formAdd:newPanel" trigger=":formAdd:btnAdd">
@@ -67,14 +70,14 @@
             <h:form id="formUpdate"> 
                 <p:outputPanel id="editPanel" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{brandBean.selectedBrand != null}"  columnClasses="label,value">
-                        <h:outputText value="Code" />
-                        <p:inputText id="editBrandCode" value="#{brandBean.selectedBrand.brdCode}" />
+                        <h:outputText value="Creation" />
+                        <p:inputText disabled="True" id="editBrandCode" value="#{brandBean.selectedBrand.brdCode}" />
 
                         <h:outputText value="Name" />
                         <p:inputText id="editBrandName" value="#{brandBean.selectedBrand.brdName}" />
 
                         <h:outputText value="Status" />
-                        <p:inputText id="editBrandStatus" value="#{brandBean.selectedBrand.brdStatus}" />
+                        <p:selectBooleanButton value="#{brandBean.selectedBrand.brdStatus}" offLabel="Inactive" onLabel="Active" />
 
                     </p:panelGrid>
 
@@ -94,13 +97,13 @@
                         <h:outputText value="Brand" />
                     </f:facet>
                     <h:outputText value="Code" />
-                    <h:outputText value="#{brandBean.selectedBrand.brdCode}" />
+                    <h:outputText   value="#{brandBean.selectedBrand.brdCode}" />
 
                     <h:outputText value="Name" />
                     <h:outputText value="#{brandBean.selectedBrand.brdName}" />
 
                     <h:outputText value="Status" />
-                    <h:outputText value="#{brandBean.selectedBrand.brdStatus}"/>
+                    <p:selectBooleanButton disabled="True" value="#{brandBean.selectedBrand.brdStatus}" offLabel="Inactive" onLabel="Active" />
                 </p:panelGrid>
             </p:outputPanel>
         </p:dialog>
@@ -131,9 +134,7 @@
             <h:form id="formNewBrand">
                 <p:outputPanel id="newBrandPanel" style="text-align:center;">
                     <p:panelGrid  columns="2"  columnClasses="label,value">
-                      <h:outputText value="Code" />
-                    <h:outputText value="#{brandBean.selectedBrand.brdCode}" />
-
+                        
                     <h:outputText value="Name" />
                     <h:outputText value="#{brandBean.selectedBrand.brdName}" />
 
@@ -159,18 +160,18 @@
                 <p:tab title="Products management">
                     <h:panelGrid columns="1" >
                         <p:carousel id="ProductTable" value="#{brandBean.products}"
-                                    var="itemProduct" itemStyle="height:150px;" 
+                                    var="itemProduct" itemStyle="width: 200px !important;"  
                                     numVisible="1" easing="easeOutBounce"  circular="true">
                             <h:panelGrid columns="2" style="width:100%" columnClasses="label,value" class="tableHeader">
                                 <f:facet name="header">
                                     <h:outputText value="#{itemProduct.prName}" />
                                 </f:facet>
 
-                                <h:outputText value="Code" />
-                                <h:outputText value="#{itemProduct.prCode}" style="color: blue"/>
+                                <h:outputText value="Bar Code" />
+                                <h:outputText value="#{itemProduct.prBarCode}" style="color: blue"/>
 
                                 <h:outputText value="Cost Price" />
-                                <h:outputText value="#{itemProduct.costPrice}" style="color: blue"/>
+                                <h:outputText value="$#{itemProduct.costPrice}" style="color: blue"/>
 
                                 <h:outputText value="Selling Price" />
                                 <h:outputText value="$#{itemProduct.sellingPrice} " style="color: blue"/>
@@ -199,8 +200,8 @@
                     <h:outputText value="Name" />
                     <h:outputText id="prName" value="#{brandBean.selectedProduct.prName}" />
                     
-                     <h:outputText value="Code" />
-                    <h:outputText id="prCode" value="#{brandBean.selectedProduct.prCode}" />
+                     <h:outputText value="Bar Code" />
+                    <h:outputText id="prBarCode" value="#{brandBean.selectedProduct.prBarCode}" />
 
                     <h:outputText value="Cost Price" />
                     <h:outputText id="costPrice" value="#{brandBean.selectedProduct.costPrice}" />
@@ -216,8 +217,8 @@
                     <h:outputText value="Name" />
                     <h:outputText  value="#{brandBean.selectedProduct.prName}" />
 
-                      <h:outputText value="Code" />
-                    <h:outputText  value="#{brandBean.selectedProduct.prCode}" />
+                      <h:outputText value="Bar Code" />
+                    <h:outputText  value="#{brandBean.selectedProduct.prBarCode}" />
 
                       <h:outputText value="Cost Price" />
                     <h:outputText  value="#{brandBean.selectedProduct.costPrice}" />
@@ -225,7 +226,7 @@
                    <h:outputText value="Selling Price" />
                     <h:outputText  value="#{brandBean.selectedProduct.sellingPrice}" />
                 </p:panelGrid>
-                <p:commandButton id="btnDeleteProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('deleteProductDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{brandBean.deleteProduct}"  />
+                <p:commandButton id="btnDeleteProduct" update=":ProductForm:tabProduct:ProductTable" oncomplete="PF('deleteProductDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{brandBean.deleteProduct}" />
                 <p:blockUI block=":deleteProductPanel" trigger=":btnDeleteProduct">
                     LOADING<br />
                     <p:graphicImage name="./images/45.gif" />
@@ -239,8 +240,8 @@
                         <h:outputText value="Name" />
                         <p:inputText id="brName" value="#{brandBean.selectedProduct.prName}" />
 
-                        <h:outputText value="Code" />
-                        <p:inputText id="prCode" value="#{brandBean.selectedProduct.prCode}" />
+                        <h:outputText value="Bar Code" />
+                        <p:inputText id="prBarCode" value="#{brandBean.selectedProduct.prBarCode}" />
 
                         <h:outputText value="Cost Price" />
                         <p:inputText id="costPrice" value="#{brandBean.selectedProduct.costPrice}" />

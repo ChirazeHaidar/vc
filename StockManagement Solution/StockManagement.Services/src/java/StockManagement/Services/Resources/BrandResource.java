@@ -114,6 +114,7 @@ public class BrandResource {
             copy.setCostPrice(original.getCostPrice());
             copy.setSellingPrice(original.getSellingPrice());
             copy.setPrStatus(original.isPrStatus());
+            copy.setPrBarCode(original.getPrBarCode());
             newList.add(copy);
         }
         return newList;

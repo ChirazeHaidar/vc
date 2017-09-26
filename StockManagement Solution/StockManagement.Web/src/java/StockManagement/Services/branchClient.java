@@ -20,7 +20,7 @@ import javax.ws.rs.core.GenericType;
  *        client.close();
  * </pre>
  *
- * @author mfaour
+ * @author Firas
  */
 public class branchClient {
 

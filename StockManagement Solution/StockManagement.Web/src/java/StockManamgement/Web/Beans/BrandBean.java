@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.GenericType;
 import org.primefaces.event.SelectEvent;
 
@@ -168,15 +169,14 @@ public class BrandBean implements Serializable {
         MessageView.Info("Info", "Product deleted successfully.");
     }
     
-       public void onRowSelect(SelectEvent event) {
-       if (event != null){
+       public boolean onRowSelect(SelectEvent event) {
           Integer BrdCode = ((Brand) event.getObject()).getBrdCode();
         GenericType<List<Product>> gType = new GenericType<List<Product>>() {};
        products = service.getProducts(gType, BrdCode);
-        setProducts(products);
-    }
-     
-   
-        
+     //   setProducts(products);
+          return  products !=null;
+
+
 }
+       
 }

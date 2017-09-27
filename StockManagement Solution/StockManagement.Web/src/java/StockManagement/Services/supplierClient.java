@@ -11,19 +11,9 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
-
 /**
- * Jersey REST client generated for REST resource:SupplierResource
- * [Supplier]<br>
- * USAGE:
- * <pre>
- *        supplierClient client = new supplierClient();
- *        Object response = client.XXX(...);
- *        // do whatever with response
- *        client.close();
- * </pre>
  *
- * @author mfaour
+ * @author Elie
  */
 @ManagedBean(name="supplierClient")
 @ApplicationScoped

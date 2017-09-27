@@ -16,10 +16,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.ws.rs.core.GenericType;
-
 /**
  *
- * @author mfaour
+ * @author Elie
  */
 @ManagedBean
 @ViewScoped

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../master/main.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+       <h:form id="mainForm">
+           <p:dataTable id="clientTable" value="#{clientBean.clients}" var="client" paginator="true" rows="10" 
+                        selectionMode="single" selection="#{clientBean.selectedClient}" rowKey="#{client.cltCode }"
+                         rowsPerPageTemplate="5,10,20" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">  
+                <f:facet name="header">  
+                    <div align="left">	
+                        <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
+                    </div>
+                </f:facet> 
+               <p:column headerText="Code" class="tableHeader">${client.cltCode}</p:column>
+                <p:column headerText="Title" class="tableHeader">${client.cltTitle}</p:column>
+               <p:column headerText="Name" class="tableHeader" >${client.cltName}</p:column>
+               <p:column headerText="Mobile" class="tableHeader">${client.cltMobile}</p:column>
+              <p:column headerText="Email" class="tableHeader">${client.cltEmail}</p:column>
+               <p:column headerText="Creation date" class="tableHeader">${client.cltCreationDate}</p:column>
+                
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":formUpdate:editPanel" icon="ui-icon ui-icon-pencil" oncomplete="PF('editDialog').show()" title="Edit client">
+                        <f:setPropertyActionListener value="#{client}" target="#{clientBean.selectedClient}" />
+                    </p:commandButton>
+                </p:column>
+               <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete client">
+                        <f:setPropertyActionListener value="#{client}" target="#{clientBean.selectedClient}" />
+                    </p:commandButton>
+                </p:column>
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton icon="ui-icon ui-icon-search"  action="order" title="View Orders">
+                        
+                        <f:param id="clt_id"  name="sup_id" value="#{client.cltCode}"  />
+                    </p:commandButton >
+                </p:column>
+            </p:dataTable>
+            <p:blockUI block=":mainForm:clientTable" trigger=":mainForm:clientTable">
+                LOADING<br />
+                <p:graphicImage name="./images/45.gif" />
+            </p:blockUI>
+        </h:form>
+        <p:dialog  header="New client" widgetVar="newDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
+            <h:form id="formAdd">  
+                <p:outputPanel id="newPanel" style="text-align:center;">
+                    <p:panelGrid  columns="2"  columnClasses="label,value" >
+                         <h:outputText value="Title" />
+                        <p:inputText id="supAddress" value="#{clientBean.newClient.cltTitle}" />
+                        
+                        <h:outputText value="Name" />
+                        <p:inputText id="supName" value="#{clientBean.newClient.cltName}" />
+
+                        <h:outputText value="Email" />
+                        <p:inputText id="supEmail" value="#{clientBean.newClient.cltEmail}" />
+
+                        <h:outputText value="Mobile" />
+                        <p:inputText id="supMobile" value="#{clientBean.newClient.cltMobile}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton id="btnAdd" update=":mainForm:clientTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{clientBean.add}"  />
+                    <p:blockUI block=":formAdd:newPanel" trigger=":formAdd:btnAdd">
+                        LOADING<br />
+                        <p:graphicImage name="./images/45.gif" />
+                    </p:blockUI>
+                </p:outputPanel>
+            </h:form>
+        </p:dialog> 
+        <p:dialog header="Edit client" widgetVar="editDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
+            <h:form id="formUpdate"> 
+                <p:outputPanel id="editPanel" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{clientBean.selectedClient != null}"  columnClasses="label,value">
+                        
+                         <h:outputText value="Title" />
+                        <p:inputText id="editsupAddress" value="#{clientBean.selectedClient.cltTitle}" />
+
+                        <h:outputText value="Name" />
+                        <p:inputText id="editsupName" value="#{clientBean.selectedClient.cltName}" />
+
+                       
+                        <h:outputText value="Email" />
+                        <p:inputText id="editsupEmail" value="#{clientBean.selectedClient.cltEmail}" />
+
+                        <h:outputText value="mobile" />
+                        <p:inputText id="editsupMobile" value="#{clientBean.selectedClient.cltMobile}" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton   id="btnUpdate" update=":mainForm:clientTable" oncomplete="PF('editDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{clientBean.update}"  />
+                    <p:blockUI block=":formUpdate:editPanel" trigger=":formUpdate:btnUpdate">
+                        LOADING<br />
+                        <p:graphicImage name="./images/45.gif" />
+                    </p:blockUI>
+                </p:outputPanel>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Delete client" widgetVar="deleteDialog" appendTo="@(body)" modal="true" 
+                  showEffect="blind" hideEffect="explode" resizable="false">
+            <p:outputPanel id="deletePanel" style="text-align:center;">
+                <p:panelGrid  columns="2" rendered="#{not empty clientBean.selectedClient}" columnClasses="label,value">
+                    <f:facet name="header">
+                        <h:outputText value="Are you sure you?" />
+                    </f:facet>
+                    <h:outputText value="Code" />
+                    <h:outputText value="#{clientBean.selectedClient.cltCode}" />
+
+                    <h:outputText value="Title" />
+                    <h:outputText value="#{clientBean.selectedClient.cltTitle}" />
+
+                    <h:outputText value="Description" />
+                    <h:outputText value="#{clientBean.selectedClient.cltName}"/>
+                </p:panelGrid>
+                <p:commandButton id="btnDelete" update=":mainForm:clientTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{clientBean.delete}"  />
+                <p:blockUI block=":deletePanel" trigger=":btnDelete">
+                    LOADING<br />
+                    <p:graphicImage name="./images/45.gif" />
+                </p:blockUI>
+            </p:outputPanel>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

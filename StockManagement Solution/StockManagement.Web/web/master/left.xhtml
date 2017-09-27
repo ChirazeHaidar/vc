@@ -12,6 +12,14 @@
                     items: "> :not(.ui-widget-header)"
                 });
             });*/
+    $(document).ready(function() {
+   $('.ui-menuitem-link').each(function(){
+       if(window.location.pathname.indexOf($(this).attr('href')) != -1) {
+           $(this).css('background', '#f6a828');//or add class
+       }
+   });  
+
+});
         </script>
         <style>
             .ui-menu { width: 200px; }

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated September 26, 2017 11:35:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="StockManagement.ObjectModel.ValueObject.Chart" table="Chart" catalog="gestiondesbiens" optimistic-lock="version">
+        <id name="PrCode" type="java.lang.Integer">
+            <column name="PrCode" />
+            <generator class="identity" />
+        </id>
+        <property name="PrName" type="string">
+            <column name="PrName" length="50" />
+        </property>
+        <property name="Orders" type="java.lang.Integer">
+            <column name="Orders" />
+        </property>
+        <property name="CostPrice" type="float">
+            <column name="CostPrice" />
+        </property>
+         <property name="SellingPrice" type="float">
+            <column name="SellingPrice" />
+        </property>
+    </class>
+</hibernate-mapping>

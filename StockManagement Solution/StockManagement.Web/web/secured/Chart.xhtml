@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../master/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+      <ui:param name="hideRightMenu" value="true" />
+  <ui:define name="content">
+        <h:form id="mainForm">
+            <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+              <p:chart type="line" model="#{ChartBean.animatedModel1}" style="width:400px;" />
+              <p:chart type="bar" model="#{ChartBean.animatedModel2}" style="width:400px;" />
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+       
+</ui:composition>

@@ -11,7 +11,8 @@ On a décidé de diviser notre projet de la façon suivante :
 
 *3.	Elie Ohanian*
 
-## 2.	La partie Web : On va utiliser *« JSP, Restfull API »*
+## 2.	La partie Web : On va utiliser *« JSF, Restfull API »*
+## 3.	La partie base de données : On va utiliser *« MYSQL & Google Cloud »*
 
 ### Les personnes responsables sont :
 
@@ -21,20 +22,14 @@ On a décidé de diviser notre projet de la façon suivante :
 
 *3.	Mohamad Faour*
 
-## 3.	La partie base de données : On va utiliser *« Firebase & Google Cloud »*
+*4.	Ali Chreif*
 
-*1.	Ali Chreif*
+*5.	Khalil Bsaibes*
 
-*2.	Khalil Bsaibes*
+*6. Chiraze Haydar*
 
-*3.	Mike Rmaily*
-
-*4.	Chiraze Haydar: ou bien je dois travailler sur toutes les taches comme je suis le coordinateur"?*
+*7.	Mike Rmaily*
 
 ## De plus : les collaborateurs vont s’entre aider. 
 
 *« Khalil Bsaibes »* sera responsable du **Styling UI**.
-
-*« Mike Rmaily et Ali Chreif »* vont s’occuper du **Rest**.
-
-## En attendant la réponse de *Dr. Pascal*

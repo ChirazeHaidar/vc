@@ -9,8 +9,6 @@ import StockManagement.ObjectModel.ValueObject.Menu;
 import StockManagement.Services.MenuClient;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -19,9 +17,6 @@ import javax.ws.rs.core.GenericType;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
@@ -63,17 +58,7 @@ public class MenuBean implements Serializable {
         if (! Menus.isEmpty()){
             model = new DefaultMenuModel();
             
-//             Context ctx;
-//             String BaseURL = "";
-           String _ItemURL ="";
-//             try {
-//                 ctx = new InitialContext();
-//                 Context env = (Context) ctx.lookup("java:comp/env");
-//               BaseURL = (String) env.lookup("properties-file");
-//             } catch (NamingException ex) {
-//                 Logger.getLogger(MenuBean.class.getName()).log(Level.SEVERE, null, ex);
-//             }
-             
+            String _ItemURL ="";
             DefaultSubMenu firstSubmenu = new DefaultSubMenu("Menu");
 
           for (Menu _Menuitem : Menus) {
@@ -83,9 +68,8 @@ public class MenuBean implements Serializable {
                  _ItemURL = _ItemURL + "secured/";
              }
              item.setUrl( _ItemURL + _Menuitem.getPath());
-             item.setIcon("ui-icon-home");
+             item.setIcon("ui-icon-" +_Menuitem.getIcon());
              firstSubmenu.addElement(item);
-           
          }
                model.addElement(firstSubmenu);
         }
@@ -94,7 +78,4 @@ public class MenuBean implements Serializable {
     public void setService(MenuClient service) {
         this.service = service;
     }
-
-  
-       
 }

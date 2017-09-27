@@ -17,6 +17,8 @@
         <property name="IsSecured" type="boolean">
             <column name="IsSecured" not-null="true" />
         </property>
-
+         <property name="Icon" type="string">
+            <column name="Icon" length="45"/>
+        </property>
     </class>
 </hibernate-mapping>

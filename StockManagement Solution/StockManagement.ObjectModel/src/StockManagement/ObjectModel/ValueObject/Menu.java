@@ -11,14 +11,24 @@ public class Menu  implements java.io.Serializable {
      private String DisplayName;
      private String Path;
      private boolean IsSecured;
+     private String Icon;
 
+    public String getIcon() {
+        return Icon;
+    }
+
+    public void setIcon(String Icon) {
+        this.Icon = Icon;
+    }
+     
     public Menu() {
     }
 
-    public Menu(String DisplayName, String Path, boolean IsSecured) {
+    public Menu(String DisplayName, String Path, boolean IsSecured,String Icon) {
        this.DisplayName = DisplayName;
        this.Path = Path;
        this.IsSecured = IsSecured;
+       this.Icon = Icon;
     }
 
     public Integer getIdMenu() {

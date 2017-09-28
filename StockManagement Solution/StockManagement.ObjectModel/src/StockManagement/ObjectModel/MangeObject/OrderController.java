@@ -28,6 +28,15 @@ public class OrderController implements IOrder {
         _session = _sessionFactory.openSession();
     }
 
+    @Override
+    public List<Order> getAll() {
+        List<Order> orders = _session.createQuery("From Order").list();
+        if (null == orders || orders.isEmpty()) {
+            return null;
+        }
+        return orders;
+    }
+    
     private TransactionType getTransactionType(int trCode) {
         List<TransactionType> types = _session.createQuery("From TransactionType where TrCode = " + trCode).list();
         if (null == types || types.isEmpty()) {

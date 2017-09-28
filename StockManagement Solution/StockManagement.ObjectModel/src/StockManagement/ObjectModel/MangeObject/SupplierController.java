@@ -12,6 +12,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 /**
  *
  * @author Elie
@@ -24,15 +25,16 @@ public class SupplierController implements ISupplier {
     public SupplierController() {
         _sessionFactory = HibernateUtil.getSessionFactory();
         _session = _sessionFactory.openSession();
+        
     }
 
     @Override
     public Supplier get(int supCode) {
-        Object objSupplier = _session.get(Action.class, supCode);
-        if (null == objSupplier) {
+        List<Supplier> objSupplier =  _session.createQuery("From Supplier where supCode = "+supCode).list();
+        if (null == objSupplier || objSupplier.isEmpty()) {
             return null;
         }
-        return (Supplier) objSupplier;
+        return (Supplier) objSupplier.get(0);
     }
 
     @Override
@@ -141,4 +143,3 @@ public class SupplierController implements ISupplier {
     }
 
 }
-

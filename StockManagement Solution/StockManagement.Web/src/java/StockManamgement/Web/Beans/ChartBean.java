@@ -30,7 +30,8 @@ public class ChartBean implements Serializable {
     private List<Chart> ProductsOrders;
     private LineChartModel animatedModel1;
    private BarChartModel animatedModel2;
-    public List<Chart> getProductsOrders() {
+ 
+   public List<Chart> getProductsOrders() {
         return ProductsOrders;
     }
 
@@ -57,14 +58,14 @@ public class ChartBean implements Serializable {
     }
 
     private void refreshData() {
-//        GenericType<List<Chart>> gType = new GenericType<List<Chart>>() {
-//        };
-//        ProductsOrders = service.GetProductsOrders(gType);
-//        
-//        if (! ProductsOrders.isEmpty()){
-//          
-//          
-//        }
+        GenericType<List<Chart>> gType = new GenericType<List<Chart>>() {
+        };
+        ProductsOrders = service.GetProductsOrders(gType);
+        
+        if (! ProductsOrders.isEmpty()){
+          
+          
+        }
 }
   
     public LineChartModel getAnimatedModel1() {

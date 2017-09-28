@@ -40,12 +40,14 @@ public class ChartClient {
  
     
     public <T> T GetProductsOrders(GenericType<T> responseType) throws ClientErrorException {
+    try{
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+          }catch(Exception Ex){
+      System.err.println("Caught Exception: " + Ex.getMessage());
     }
-
- 
-    
+        return null;
+    }
     public void close() {
         client.close();
     }

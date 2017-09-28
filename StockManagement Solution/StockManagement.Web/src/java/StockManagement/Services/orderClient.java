@@ -5,6 +5,7 @@
  */
 package StockManagement.Services;
 
+import StockManamgement.Web.Utilities.Configuration;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.ws.rs.ClientErrorException;
@@ -31,7 +32,7 @@ public class orderClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
+    private static final String BASE_URI = Configuration.ServiceURL;//"http://localhost:8080/StockManagement.Services/webresources";
 
     public orderClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

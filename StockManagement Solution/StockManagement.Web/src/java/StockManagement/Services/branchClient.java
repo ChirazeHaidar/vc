@@ -5,6 +5,7 @@
  */
 package StockManagement.Services;
 
+import StockManamgement.Web.Utilities.Configuration;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -26,7 +27,7 @@ public class branchClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
+    private static final String BASE_URI =Configuration.ServiceURL;// "http://localhost:8080/StockManagement.Services/webresources";
 
     public branchClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

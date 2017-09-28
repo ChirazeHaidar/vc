@@ -32,15 +32,15 @@ public class ApplicationConfig extends Application {
         resources.add(StockManagement.Services.Resources.ActionResource.class);
         resources.add(StockManagement.Services.Resources.BranchResource.class);
         resources.add(StockManagement.Services.Resources.BrandResource.class);
+        resources.add(StockManagement.Services.Resources.ChartResource.class);
         resources.add(StockManagement.Services.Resources.ClientResource.class);
         resources.add(StockManagement.Services.Resources.CompanyResource.class);
+        resources.add(StockManagement.Services.Resources.MenuResource.class);
         resources.add(StockManagement.Services.Resources.OrderResource.class);
         resources.add(StockManagement.Services.Resources.ProductResource.class);
         resources.add(StockManagement.Services.Resources.RoleResource.class);
-        resources.add(StockManagement.Services.Resources.SupplierResource.class);
-        resources.add(StockManagement.Services.Resources.UserResource.class);
-         resources.add(StockManagement.Services.Resources.MenuResource.class);
-         resources.add(StockManagement.Services.Resources.ChartResource.class);
+         resources.add(StockManagement.Services.Resources.SupplierResource.class);
+         resources.add(StockManagement.Services.Resources.UserResource.class);
     }
     
 }

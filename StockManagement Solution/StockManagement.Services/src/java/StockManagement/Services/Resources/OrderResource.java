@@ -8,13 +8,14 @@ package StockManagement.Services.Resources;
 import StockManagement.ObjectModel.MangeObject.OrderController;
 import StockManagement.ObjectModel.ObjectInterface.IOrder;
 import StockManagement.ObjectModel.ValueObject.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author mfaour
+ * @author Ali chreif
  */
 @Path("Order")
 public class OrderResource {
@@ -24,11 +25,34 @@ public class OrderResource {
     public OrderResource() {
         _controller = new OrderController();
     }
-    
- 
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Order> getAll() {
+        List<Order> orders =  _controller.getAll();
+        if ( null == orders || orders.isEmpty())
+            return null;
+        List<Order> list = new ArrayList();
+        for(int i=0;i<orders.size();i++)
+        {
+            Order original = orders.get(i);
+            Order copy = new Order();
+            copy.setDestination(original.getDestination());
+            copy.setOrdCode(original.getOrdCode());
+            copy.setOrdDate(original.getOrdDate());
+            copy.setOrdDestination(original.getOrdDestination());
+            copy.setOrdQty(original.getOrdQty());
+            copy.setPrCode(original.getPrCode());
+            copy.setOrdSource(original.getOrdSource());
+            copy.setSource(original.getSource());
+            list.add(copy);
+        }
+        return list;
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/add")
     public int add(Order order) {
         return _controller.add(order);
@@ -36,31 +60,23 @@ public class OrderResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/update")
     public boolean update(Order order) {
         return _controller.update(order);
     }
 
+   
 
-    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/delete")
-    public boolean delete(Order order) {
-        return _controller.delete(order);
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/deleteById")
     public boolean delete(int ordCode) {
         return _controller.delete(ordCode);
     }
 
-  @POST
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getBySource")
@@ -81,15 +97,25 @@ public class OrderResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/getByCompany/{compCode}")
     public List<Order> getByCompany(@PathParam("compCode") int compCode) {
-        return _controller.getByCompany(compCode);
+         List<Order> orders =   _controller.getByCompany(compCode);
+        if ( null == orders || orders.isEmpty())
+            return null;
+        List<Order> list = new ArrayList();
+        for(int i=0;i<orders.size();i++)
+        {
+            Order original = orders.get(i);
+            Order copy = new Order();
+            copy.setDestination(original.getDestination());
+            copy.setOrdCode(original.getOrdCode());
+            copy.setOrdDate(original.getOrdDate());
+            copy.setOrdDestination(original.getOrdDestination());
+            copy.setOrdQty(original.getOrdQty());
+            copy.setPrCode(original.getPrCode());
+            copy.setOrdSource(original.getOrdSource());
+            copy.setSource(original.getSource());
+            list.add(copy);
+        }
+        return list;
     }
-
-     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-     
-    public List<Order> getAll() {
-        return null;
-        // throw (new Exception("Not implemented exception"));
-    }
-    
+ 
 }

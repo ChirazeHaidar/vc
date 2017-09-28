@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 27, 2017 9:49:43 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="javaapplication2.Invoice" table="Invoice" catalog="gestiondesbiens" optimistic-lock="version">
+        <id name="invCode" type="int">
+            <column name="InvCode" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="branch" class="javaapplication2.Branch" fetch="select">
+            <column name="BrCode" not-null="true" />
+        </many-to-one>
+        <many-to-one name="client" class="javaapplication2.Client" fetch="select">
+            <column name="CltCode" not-null="true" />
+        </many-to-one>
+        <many-to-one name="product" class="javaapplication2.Product" fetch="select">
+            <column name="PrCode" not-null="true" />
+        </many-to-one>
+        <many-to-one name="transactionType" class="javaapplication2.TransactionType" fetch="select">
+            <column name="TrCode" not-null="true" />
+        </many-to-one>
+        <many-to-one name="company" class="javaapplication2.Company" fetch="select">
+            <column name="CompCode" not-null="true" />
+        </many-to-one>
+        <property name="invDate" type="timestamp">
+            <column name="InvDate" length="19" not-null="true" />
+        </property>
+        <property name="invQty" type="int">
+            <column name="InvQty" not-null="true" />
+        </property>
+        <property name="invDbCr" type="boolean">
+            <column name="InvDbCr" not-null="true" />
+        </property>
+        <property name="sellingPrice" type="int">
+            <column name="SellingPrice" not-null="true" />
+        </property>
+        <property name="value" type="int">
+            <column name="Value" not-null="true" />
+        </property>
+        <property name="discount" type="java.lang.Integer">
+            <column name="Discount" />
+        </property>
+    </class>
+</hibernate-mapping>

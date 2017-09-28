@@ -18,8 +18,10 @@ import javax.ws.rs.core.GenericType;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
+import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 /**
  *
  * @author MikeRmaily
@@ -30,20 +32,11 @@ public class ChartBean implements Serializable {
     private List<Chart> ProductsOrders;
     private LineChartModel animatedModel1;
    private BarChartModel animatedModel2;
-     private BarChartModel animatedModel3;
  
    public List<Chart> getProductsOrders() {
         return ProductsOrders;
     }
-
-    public BarChartModel getAnimatedModel3() {
-        return animatedModel3;
-    }
-
-    public void setAnimatedModel3(BarChartModel animatedModel3) {
-        this.animatedModel3 = animatedModel3;
-    }
-
+   
     public void setProductsOrders(List<Chart> ProductsOrders) {
         this.ProductsOrders = ProductsOrders;
     }
@@ -70,10 +63,8 @@ public class ChartBean implements Serializable {
         GenericType<List<Chart>> gType = new GenericType<List<Chart>>() {
         };
         ProductsOrders = service.GetProductsOrders(gType);
-        
         if (! ProductsOrders.isEmpty()){
            createAnimatedModels();
-          
         }
 }
   
@@ -86,15 +77,19 @@ public class ChartBean implements Serializable {
     }
  
     private void createAnimatedModels() {
-
-       animatedModel2 = initBarModel();
-       animatedModel2.setTitle("Product Orders");
-      animatedModel2.setAnimate(true);
+        animatedModel2 = initBarModel();
+        animatedModel2.setTitle("Product Orders");
+        animatedModel2.setAnimate(true);
         animatedModel2.setLegendPosition("ne");
-         Axis  yAxis = animatedModel2.getAxis(AxisType.Y);
+        Axis  yAxis = animatedModel2.getAxis(AxisType.Y);
+        yAxis.setLabel("Orders");
         yAxis.setMin(0);
-       yAxis.setMax(10);
-   
+        yAxis.setMax(10);
+        
+        Axis XAxis = animatedModel2.getAxis(AxisType.X);
+        XAxis.setLabel("Products");
+        
+        InitAreaModel();
     }
      
     private BarChartModel initBarModel() {
@@ -110,6 +105,40 @@ public class ChartBean implements Serializable {
         return model;
     }
     
-
-
+     private void  InitAreaModel() {
+        animatedModel1 = new LineChartModel();
+ 
+        LineChartSeries CostPrice = new LineChartSeries();
+        CostPrice.setFill(true);
+        CostPrice.setLabel("Cost Price");
+        
+        LineChartSeries SellingPrice = new LineChartSeries();
+        SellingPrice.setFill(true);
+        SellingPrice.setLabel("Selling Price");
+        
+        for (Iterator<Chart> it = ProductsOrders.iterator(); it.hasNext();) {
+            Chart Order = it.next();
+            CostPrice.set(Order.getPrName(), Order.getCostPrice());
+        
+            SellingPrice.set(Order.getPrName(), Order.getSellingPrice() - Order.getCostPrice());
+                SellingPrice.isFill();
+                SellingPrice.isShowLine();
+                SellingPrice.isShowMarker();
+        }
+        
+        animatedModel1.addSeries(CostPrice);
+        animatedModel1.addSeries(SellingPrice);
+         
+        animatedModel1.setTitle("Cost VS Selling Price");
+        animatedModel1.setLegendPosition("ne");
+        animatedModel1.setStacked(true);
+        animatedModel1.setShowPointLabels(true);
+         
+        Axis xAxis = new CategoryAxis("Products");
+        animatedModel1.getAxes().put(AxisType.X, xAxis);
+        Axis yAxis = animatedModel1.getAxis(AxisType.Y);
+        yAxis.setLabel("Prices");
+        yAxis.setMin(0);
+        yAxis.setMax(1000);
+     }
 }

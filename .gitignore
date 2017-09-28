@@ -20,3 +20,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/StockManagement Solution/StockManagement.ObjectModel/nbproject/private/
+/StockManagement Solution/StockManagement.Services/nbproject/private/
+/StockManagement Solution/StockManagement.Web/nbproject/private/
+/StockManagement Solution/StockManagement.Web/build/
+/StockManagement Solution/StockManagement.Services/build/
+/StockManagement Solution/StockManagement.ObjectModel/build/
+/StockManagement Solution/StockManagement.ObjectModel/dist/
+/StockManagement Solution/StockManagement.Web/dist/
+/StockManagement Solution/StockManagement.Services/dist/

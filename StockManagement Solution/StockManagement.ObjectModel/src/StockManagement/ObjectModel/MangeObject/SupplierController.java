@@ -23,7 +23,7 @@ public class SupplierController implements ISupplier {
 
     public SupplierController() {
         _sessionFactory = HibernateUtil.getSessionFactory();
-        _session = _sessionFactory.getCurrentSession();
+        _session = _sessionFactory.openSession();
     }
 
     @Override

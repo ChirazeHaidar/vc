@@ -62,5 +62,7 @@ Contributor(s):
     <mapping resource="StockManagement/ObjectModel/ValueObject/Order.hbm.xml"/>
     <mapping resource="StockManagement/ObjectModel/ValueObject/Company.hbm.xml"/>
     <mapping resource="StockManagement/ObjectModel/ValueObject/Product.hbm.xml"/>
+    <mapping resource="StockManagement/ObjectModel/ValueObject/Menu.hbm.xml"/>
+    <mapping resource="StockManagement/ObjectModel/ValueObject/Chart.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

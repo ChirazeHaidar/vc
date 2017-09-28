@@ -16,15 +16,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.ws.rs.core.GenericType;
 import org.primefaces.model.DualListModel;
 
 /**
- * 
+ *
  * @author ali chreif
  */
 @ManagedBean(name = "ordersBean")
@@ -131,10 +133,10 @@ public class OrdersBean implements Serializable {
     }
     private Order selectedOrder;
     private List<Order> orders;
-    
+
     @ManagedProperty("#{orderClient}")
     private transient orderClient service;
-    
+
     public void setSelectedOrder(Order selectedOrder) {
         this.selectedOrder = selectedOrder;
     }
@@ -153,10 +155,14 @@ public class OrdersBean implements Serializable {
     }
 
     private void refreshData() {
+        Map<String, String> params = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap();
         GenericType<List<Order>> gType = new GenericType<List<Order>>() {
         };
-
-        orders = service.getByCompany(1, gType);
+        String compCode = params.get("compId");
+        if ( compCode == null || compCode.isEmpty())
+            compCode = "1";
+        orders = service.getByCompany(gType, compCode);
         int x = 1;
         int y = x;
     }
@@ -165,16 +171,16 @@ public class OrdersBean implements Serializable {
         this.service = service;
     }
 
-    public void add() {  
+    public void add() {
         Order o = new Order();
         Company c = new Company();
-        
+
         userClient client = new userClient();
         User u = client.get(User.class, 1);
-        
+
         companyClient company = new companyClient();
         c = company.get(Company.class, "1");
-        
+
         o.setCompany(c);
         o.setOrdCode(1);
         o.setOrdDate(new Date());
@@ -183,9 +189,9 @@ public class OrdersBean implements Serializable {
         o.setOrdSource(1);
         o.setPrCode(2);
         o.setUser(u);
-        
+
         service.add(o, int.class);
-        
+
         /*newC.setOrdCode(getCompName());
         newC.setCompDesc(getCompDesc());
         newC.setCompStatus(1);
@@ -214,9 +220,6 @@ public class OrdersBean implements Serializable {
         return orders;
     }
 
-    
-  
-
     /*public void onRowSelect(SelectEvent event) {
         Integer compCode = ((Company) event.getObject()).getCompCode();
         GenericType<List<Branch>> gType = new GenericType<List<Branch>>() {
@@ -241,23 +244,18 @@ public class OrdersBean implements Serializable {
 
         //roles = new DualListModel<>(includedRoles, excludedRoles);
     }*/
-
-   
-
-   /* public void addBranch() {
+ /* public void addBranch() {
         newBranch.setCompany(selectedCompany);
         service.addBranch(newBranch, String.class);
         MessageView.Info("Info", "Branch saved successfully.");
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Company saved succesfully.."));
     }*/
 
-    /*public void updateBranch() {
+ /*public void updateBranch() {
         selectedBranch.setCompany(selectedCompany);
         service.updateBranch(selectedBranch, String.class);
         MessageView.Info("Info", "Branch updated successfully.");
     }*/
-
-
     private DualListModel<String> cities;
 
     public DualListModel<String> getCities() {
@@ -272,9 +270,6 @@ public class OrdersBean implements Serializable {
         cities = new DualListModel<>(source, target);
         return cities;
     }
-
-   
-
 
     /*public void onTransfer(TransferEvent event) {
         Role selectedRole;
@@ -294,5 +289,4 @@ public class OrdersBean implements Serializable {
 
     }*/
     //</editor-fold>
-
 }

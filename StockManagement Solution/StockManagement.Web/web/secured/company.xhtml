@@ -47,9 +47,15 @@
                     </p:commandButton>
                 </p:column>
                     <p:column style="width:32px;text-align: center">
-                        <p:commandButton ajax="false" icon="ui-icon ui-icon-arrow"  action="stock" title="View Stock">
+                        <p:commandButton ajax="false" icon="ui-icon ui-icon-suitcase"  action="stock" title="View Stock">
                         
                         <f:param id="comp_id"  name="comp_id" value="#{itemCompany.compCode}"  />
+                    </p:commandButton >
+                </p:column>
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton ajax="false" icon="ui-icon ui-icon-cart"  action="orders" title="View Orders">
+                        
+                        <f:param id="compId"  name="compId" value="#{itemCompany.compCode}"  />
                     </p:commandButton >
                 </p:column>
             </p:dataTable>

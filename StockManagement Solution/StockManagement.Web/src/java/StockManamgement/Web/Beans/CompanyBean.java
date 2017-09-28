@@ -24,6 +24,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.ClientErrorException;
+import java.util.List;
 import javax.ws.rs.core.GenericType;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.TransferEvent;

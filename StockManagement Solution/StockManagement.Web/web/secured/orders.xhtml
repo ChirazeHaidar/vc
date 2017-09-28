@@ -49,11 +49,10 @@
                 <p:graphicImage name="./images/45.gif" />
             </p:blockUI>
         </h:form>
-        <p:dialog  header="New order" widgetVar="newDialog" appendTo="@(body)" modal="true" height="120" resizable="false">
+        <p:dialog  header="New order" widgetVar="newDialog" appendTo="@(body)" modal="true" height="240" resizable="false">
             <h:form id="formAdd">  <p:outputPanel id="newPanel" style="text-align:center;">
                     <p:panelGrid  columns="2"  columnClasses="label,value" >
-                        <h:outputText value="Code" />
-                        <p:inputText id="orderCode" value="#{ordersBean.orderCode}" />
+                       
 
                         <h:outputText value="Source" />
                         <p:inputText id="orderSrc" value="#{ordersBean.orderSrc}" />

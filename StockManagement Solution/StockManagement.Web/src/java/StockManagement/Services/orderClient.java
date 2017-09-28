@@ -23,7 +23,7 @@ public class orderClient {
 
     private final WebTarget webTarget;
     private final Client client;
-    private static final String BASE_URI = "http://35.194.131.184:8090/StockManagement.Services/webresources";
+    private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
 
     public orderClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

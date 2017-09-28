@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:outputScript library="primefaces" name="jquery/jquery.js"/>
     <h:body>
         <script>
@@ -10,12 +12,28 @@
                     items: "> :not(.ui-widget-header)"
                 });
             });*/
+    $(document).ready(function() {
+   $('.ui-menuitem-link').each(function(){
+       if(window.location.pathname.indexOf($(this).attr('href')) != -1) {
+           $(this).css('background', '#f6a828');//or add class
+       }
+   });  
+
+});
         </script>
         <style>
             .ui-menu { width: 200px; }
             .ui-widget-header { padding: 0.2em; }
         </style>
-
+          <p:menu model="#{MenuBean.model}" /> 
+     
+<!--                <h:dataTable value="#{MenuBean.menus}" var="menu">
+            <h:column>
+                <h:link value="#{menu.displayName}" outcome="menu">
+                    <f:param name="id" value="#{menu.path}" />
+                </h:link>
+            </h:column>
+        </h:dataTable>
         <ul id="menu">
             <li class="ui-widget-header"><div>Category 1</div></li>
             <li><div>Option 1</div></li>
@@ -25,7 +43,7 @@
             <li><div>Option 4</div></li>
             <li><div>Option 5</div></li>
             <li><div>Option 6</div></li>
-        </ul>
+        </ul>-->
     </h:body>
 </html>
 

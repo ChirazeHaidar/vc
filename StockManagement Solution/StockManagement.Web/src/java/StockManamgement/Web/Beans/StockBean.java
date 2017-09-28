@@ -40,7 +40,6 @@ public class StockBean implements Serializable {
     private String stockCode;
     private int supCode;
     private int prCode;
-    private String stkCode;
     @PostConstruct
     public void init() {
          
@@ -73,18 +72,18 @@ public class StockBean implements Serializable {
         };
        Map<String, String> params = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap();
-        if (stkCode == null || stkCode.isEmpty()) {
+        if (stockCode == null || stockCode.isEmpty()) {
             companyClient client = new companyClient();
-            stkCode = params.get("comp_id");
-            Stock stock = client.getStock(Stock.class, stkCode);
+            stockCode = params.get("comp_id");
+            Stock stock = client.getStock(Stock.class, stockCode);
             if ( stock == null)
             {
                 MessageView.Error("Error", "Company does not have a stock yet..");
                 return;
             }
-            stkCode = String.valueOf( stock.getStkCode());
+            stockCode = String.valueOf( stock.getStkCode());
         }
-        products = service.getByStock(gType, stkCode);
+        products = service.getByStock(gType, stockCode);
     }
 
     public List<Supplier> getSuppliers() {

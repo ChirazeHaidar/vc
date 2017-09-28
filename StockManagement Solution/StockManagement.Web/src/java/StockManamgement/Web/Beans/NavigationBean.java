@@ -19,11 +19,11 @@ public class NavigationBean implements Serializable {
  
  
     public String redirectToHome() {
-        return "/secured/company.xhtml?faces-redirect=true";
+        return "/secured/Chart.xhtml?faces-redirect=true";
     }
 
     public String toHome() {
-        return "/secured/company.xhtml";
+        return "/secured/Chart.xhtml";
     }
     
     public String redirectToLogin() {

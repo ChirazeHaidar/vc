@@ -5,6 +5,7 @@
         <group>
             <file>file:/D:/NetBeansProjects/ValeurC/vc/StockManagement%20Solution/StockManagement.ObjectModel/src/StockManagement/ObjectModel/ObjectInterface/IOrder.java</file>
             <file>file:/D:/NetBeansProjects/ValeurC/vc/StockManagement%20Solution/StockManagement.ObjectModel/src/StockManagement/ObjectModel/MangeObject/OrderController.java</file>
+            <file>file:/D:/NetBeansProjects/ValeurC/vc/StockManagement%20Solution/StockManagement.ObjectModel/src/StockManagement/ObjectModel/MangeObject/InvoiceController</file>
         </group>
     </open-files>
 </project-private>

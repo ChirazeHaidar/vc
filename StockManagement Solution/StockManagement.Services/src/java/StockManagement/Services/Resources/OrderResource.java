@@ -69,7 +69,7 @@ public class OrderResource {
    
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/delete")
     public boolean delete(int ordCode) {

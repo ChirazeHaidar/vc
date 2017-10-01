@@ -22,10 +22,20 @@ public class Order  implements java.io.Serializable {
      private int prCode;
      private Endpoint source;
      private Endpoint destination;
+     private int ordDbCr;
+
+    public void setOrdDbCr(int ordDbCr) {
+        this.ordDbCr = ordDbCr;
+    }
+
+    public int getOrdDbCr() {
+        return ordDbCr;
+    }
+     
     public Order() {
     }
 
-    public Order(TransactionType transactionType, User user, Company company, Date ordDate, int ordSource, int ordDestination, int ordQty, int prCode) {
+    public Order(TransactionType transactionType, User user, Company company, Date ordDate, int ordSource, int ordDestination, int ordQty, int prCode, int ordDbCr) {
        this.transactionType = transactionType;
        this.user = user;
        this.company = company;
@@ -34,6 +44,7 @@ public class Order  implements java.io.Serializable {
        this.ordDestination = ordDestination;
        this.ordQty = ordQty;
        this.prCode = prCode;
+       this.ordDbCr = ordDbCr;
     }
    
     public Integer getOrdCode() {

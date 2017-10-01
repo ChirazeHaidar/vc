@@ -5,6 +5,7 @@
  */
 package StockManagement.Services;
 
+import StockManamgement.Web.Utilities.Configuration;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.ws.rs.ClientErrorException;
@@ -31,7 +32,7 @@ public class orderClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
+    private static final String BASE_URI = Configuration.ServiceURL;//"http://localhost:8080/StockManagement.Services/webresources";
 
     public orderClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
@@ -56,7 +57,7 @@ public class orderClient {
     }
 
     public <T> T delete(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
 
     public <T> T getByCompany(GenericType<T> responseType, String compCode) throws ClientErrorException {

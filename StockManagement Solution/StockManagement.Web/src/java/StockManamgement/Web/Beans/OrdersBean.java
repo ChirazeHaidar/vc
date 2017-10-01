@@ -226,7 +226,7 @@ public class OrdersBean implements Serializable {
         Company c = new Company();
 
         userClient client = new userClient();
-        User u = client.get(User.class, 1);
+       // User u = client.get(User.class, 1);
 
         companyClient company = new companyClient();
         c = company.get(Company.class, "1");
@@ -237,7 +237,7 @@ public class OrdersBean implements Serializable {
         o.setOrdQty(getOrderQty());
         o.setOrdSource(getOrderSrc());
         o.setPrCode(getOrderPrCode());
-        o.setUser(u);
+     //   o.setUser(u);
         o.setOrdDbCr(getOrderDbCr());
 
         service.add(o, int.class);

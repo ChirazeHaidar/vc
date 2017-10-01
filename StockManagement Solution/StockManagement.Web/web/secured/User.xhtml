@@ -166,21 +166,21 @@
             </p:outputPanel>
         </p:dialog>
 
-          <p:dialog header="User Roles" widgetVar="RolesDialog" appendTo="@(body)" modal="true" 
+      <p:dialog header="User Roles" widgetVar="RolesDialog" appendTo="@(body)" height="150" modal="true"   
                   showEffect="blind" hideEffect="explode" resizable="false">
             <p:outputPanel id="RolePanel" style="text-align:center;">
                 <p:panelGrid  columns="1" rendered="#{not empty userBean.selectedUser}" columnClasses="Radio">
                     <f:facet name="header">
                         <h:outputText value="User Roles" />
                     </f:facet>
-                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" width="200">
                    <p:outputLabel for="role" value="Roles:" />
-                   <p:selectOneRadio id="role" value="#{userBean.role}"  layout="grid" columns="3"  >
-                       <f:selectItems  value="#{userBean.role}" var="r" itemLabel="#{role}" itemValue="#{role}"/>
-                   </p:selectOneRadio>
+                   <p:selectManyCheckbox  id="role" value="#{userBean.selectedroles}" layout="grid" columns="2"  >
+                       <f:selectItems  value="#{userBean.roles}" var="r" itemLabel="#{r.roName}" itemValue="#{r.roCode}"/>
+                   </p:selectManyCheckbox>
                </h:panelGrid>
                 </p:panelGrid>
-                <p:commandButton id="btnSaveRole" update=":mainForm:UserTable" oncomplete="PF('RolesDialog').hide();" value="Roles" icon="ui-icon-circle-check" actionListener="#{userBean.delete()}"  />
+                <p:commandButton id="btnSaveRole" update=":mainForm:UserTable" oncomplete="PF('RolesDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{userBean.SaveRoles}"  />
                 <p:blockUI block="RolePanel" trigger="btnSaveRole">
                     LOADING<br />
                     <p:graphicImage name="./images/45.gif" />

@@ -37,7 +37,16 @@ public class UserBean implements Serializable {
     
     private Role role;
     private List<Role> roles;
+    private List<Role> Selectedroles;
 
+    public List<Role> getSelectedroles() {
+        return Selectedroles;
+    }
+
+    public void setSelectedroles(List<Role> Selectedroles) {
+        this.Selectedroles = Selectedroles;
+    }
+    
     public Role getRole() {
         return role;
     }
@@ -158,6 +167,14 @@ public class UserBean implements Serializable {
         service.delete(selectedUser.getUsrCode(), String.class);
         refreshData();
         MessageView.Info("Info", "User " + selectedUser.getUsrUsername()+ " deleted successfully.");
+    }
+        
+        
+    public void SaveRoles() {
+      //  service.update(selectedUser, String.class);
+      //  refreshData();
+      System.out.println(Selectedroles.size());
+        MessageView.Info("Info", "Roles updated successfully.");
     }
         
        public boolean onRowSelect(SelectEvent event) {

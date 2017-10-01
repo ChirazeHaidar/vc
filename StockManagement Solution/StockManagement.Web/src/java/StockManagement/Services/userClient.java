@@ -5,7 +5,8 @@
  */
 package StockManagement.Services;
 
-import StockManamgement.Web.Utilities.Configuration;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
@@ -23,15 +24,14 @@ import javax.ws.rs.core.GenericType;
  *
  * @author mfaour
  */
+
+@ManagedBean(name="userClient")
+@ApplicationScoped
 public class userClient {
 
     private WebTarget webTarget;
     private Client client;
-<<<<<<< HEAD
     private static final String BASE_URI = "http://localhost:8084/StockManagement.Services/webresources";
-=======
-    private static final String BASE_URI = Configuration.ServiceURL;//"http://localhost:8080/StockManagement.Services/webresources";
->>>>>>> 83c1e1a4d3cb21be528fdab5ae315f2dddd515a3
 
     public userClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

@@ -81,4 +81,15 @@ public class branchClient {
         client.close();
     }
     
+    /**
+     * ali chreif
+     * get branches by company
+     */
+     public <T> T getByCompany(GenericType<T> responseType, String compCode) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("getByCompany/{0}", new Object[]{compCode}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+    
+    
 }

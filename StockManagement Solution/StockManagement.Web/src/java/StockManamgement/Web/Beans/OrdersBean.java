@@ -5,9 +5,11 @@
  */
 package StockManamgement.Web.Beans;
 
+import StockManagement.ObjectModel.ValueObject.Branch;
 import StockManagement.ObjectModel.ValueObject.Company;
 import StockManagement.ObjectModel.ValueObject.Order;
 import StockManagement.ObjectModel.ValueObject.User;
+import StockManagement.Services.branchClient;
 import StockManagement.Services.companyClient;
 import StockManagement.Services.orderClient;
 import StockManagement.Services.userClient;
@@ -15,6 +17,8 @@ import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -43,6 +47,41 @@ public class OrdersBean implements Serializable {
     private int orderCompCode;
     private int orderUsrCode;
     private int orderDbCr;
+    private String branch;
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+    private List<Branch> lb;
+    private Map<String,String> branches;
+
+    public void setBranches(Map<String, String> branches) {
+        this.branches = branches;
+    }
+
+    public Map<String, String> getBranches() {
+        return branches;
+    }
+
+   
+
+   
+
+    public void setLb(List<Branch> lb) {
+        this.lb = lb;
+    }
+
+    public List<Branch> getLb() {
+        return lb;
+    }
+
+    public void setCompanyBranches(Map<String, Object> companyBranches) {
+        companyBranches = companyBranches;
+    }
 
     public void setOrderCode(int orderCode) {
         this.orderCode = orderCode;
@@ -159,12 +198,23 @@ public class OrdersBean implements Serializable {
                 getExternalContext().getRequestParameterMap();
         GenericType<List<Order>> gType = new GenericType<List<Order>>() {
         };
+        
+        GenericType<List<Branch>> gType2 = new GenericType<List<Branch>>() {
+        };
+        
         String compCode = params.get("compId");
         if ( compCode == null || compCode.isEmpty())
             compCode = "1";
         orders = service.getByCompany(gType, compCode);
-        int x = 1;
-        int y = x;
+        
+        branchClient bc = new branchClient();
+        lb = bc.getByCompany(gType2, compCode);
+        
+        branches  = new HashMap<String, String>();
+        for(int i=0; i<lb.size(); i++){
+            branches.put(lb.get(i).getBrCode().toString(), lb.get(i).getBrName());
+        }
+       
     }
 
     public void setService(orderClient service) {
@@ -182,15 +232,18 @@ public class OrdersBean implements Serializable {
         c = company.get(Company.class, "1");
 
         o.setCompany(c);
-        o.setOrdCode(1);
         o.setOrdDate(new Date());
-        o.setOrdDestination(2);
-        o.setOrdQty(3);
-        o.setOrdSource(1);
-        o.setPrCode(2);
+        o.setOrdDestination(getOrderDest());
+        o.setOrdQty(getOrderQty());
+        o.setOrdSource(getOrderSrc());
+        o.setPrCode(getOrderPrCode());
         o.setUser(u);
+        o.setOrdDbCr(getOrderDbCr());
 
         service.add(o, int.class);
+        
+        refreshData();
+        MessageView.Info("Info", "order saved successfully.");
 
         /*newC.setOrdCode(getCompName());
         newC.setCompDesc(getCompDesc());
@@ -208,9 +261,9 @@ public class OrdersBean implements Serializable {
     }
 
     public void delete() {
-        service.delete(selectedOrder.getOrdCode(), String.class);
+        service.delete(selectedOrder.getOrdCode(), boolean.class);
         refreshData();
-        MessageView.Info("Info", "Company " + selectedOrder.getOrdCode() + " deleted successfully.");
+        MessageView.Info("Info", "Order " + selectedOrder.getOrdCode() + " deleted successfully.");
     }
 
     /**

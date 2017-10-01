@@ -204,4 +204,15 @@ public class BranchController implements IBranch {
             throw (e);
         }
     }
+    
+    @Override
+    public List<Branch> getByCompany(int compCode) {
+          String query = "From Branch where CompCode = " + compCode;
+          
+         List<Branch> branches = _session.createQuery(query).list();
+        if (null == branches || branches.isEmpty()) {
+            return null;
+        }
+        return branches; 
+    }
 }

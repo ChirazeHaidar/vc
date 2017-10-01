@@ -8,6 +8,7 @@ package StockManagement.Services;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 
 /**
  * Jersey REST client generated for REST resource:UserResource [User]<br>
@@ -25,17 +26,11 @@ public class userClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/StockManagement.Services/webresources";
+    private static final String BASE_URI = "http://localhost:8084/StockManagement.Services/webresources";
 
     public userClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTarget = client.target(BASE_URI).path("User");
-    }
-    
-    public <T> T get(Class<T> responseType, Integer usrCode) throws ClientErrorException {
-        WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("code/{0}", new Object[]{usrCode}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T add(Object requestEntity, Class<T> responseType) throws ClientErrorException {
@@ -46,11 +41,11 @@ public class userClient {
         return webTarget.path("removeRole").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
-    public <T> T getAll(Class<T> responseType) throws ClientErrorException {
+    public <T> T getAll(GenericType<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-
+    
     public <T> T get(Class<T> responseType, String usrCode) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("code/{0}", new Object[]{usrCode}));

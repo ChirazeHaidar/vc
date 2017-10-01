@@ -89,6 +89,10 @@ public class userClient {
         resource = resource.path(java.text.MessageFormat.format("roles/{0}", new Object[]{usrCode}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
+    
+      public <T> T getAllRoles(GenericType<T> responseType) throws ClientErrorException {
+        return webTarget.path("getAllRoles").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
 
     public <T> T getAllowedActions(Object requestEntity, Class<T> responseType) throws ClientErrorException {
         return webTarget.path("getAllowedActions").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);

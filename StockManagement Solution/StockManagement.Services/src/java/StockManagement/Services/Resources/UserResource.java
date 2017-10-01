@@ -53,6 +53,15 @@ public class UserResource {
     public List<Role> getRoles(User user) {
         return _controller.getRoles(user);
     }
+    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllRoles")
+    public List<Role> getAllRoles() {
+        return _controller.getAllRoles();
+    }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

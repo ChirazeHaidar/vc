@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author Khalil Bsaibes
+ * @author mfaour
  */
 public class UserController implements IUser {
 
@@ -69,6 +69,15 @@ public class UserController implements IUser {
     public List<Role> getRoles(int usrCode) {
         List<Role> roles = _session.createQuery("Select Role.* From User, UserRole where "
                 + "User.UsrCode = UserRole.UsrCode and User.UsrCode =  " + usrCode).list();
+        if (null == roles || roles.isEmpty()) {
+            return null;
+        }
+        return roles;
+    }
+    
+        @Override
+    public List<Role> getAllRoles() {
+        List<Role> roles = _session.createQuery("From Role").list();
         if (null == roles || roles.isEmpty()) {
             return null;
         }

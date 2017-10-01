@@ -7,12 +7,14 @@ package StockManagement.ObjectModel.ObjectInterface;
 
 import StockManagement.ObjectModel.ValueObject.*;
 import java.util.List;
+
 /**
  *
- * @author Khalil Bsaibes
+ * @author mfaour
  */
 public interface IUser {
-      public List<User> getAll();
+
+    public List<User> getAll();
 
     public User get(int usrCode);
 
@@ -21,6 +23,8 @@ public interface IUser {
     public List<Role> getRoles(User user);
 
     public List<Role> getRoles(int usrCode);
+     
+    public List<Role> getAllRoles();
 
     public List<Action> getAllowedActions(int usrCode);
 

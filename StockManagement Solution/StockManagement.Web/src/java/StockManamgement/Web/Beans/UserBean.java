@@ -5,6 +5,7 @@
  */
 package StockManamgement.Web.Beans;
 
+import StockManagement.ObjectModel.ValueObject.Role;
 import StockManagement.ObjectModel.ValueObject.User;
 import StockManagement.Services.userClient;
 import StockManamgement.Web.Utilities.MessageView;
@@ -33,6 +34,25 @@ public class UserBean implements Serializable {
 
     private List<User> Users;
     private User selectedUser;
+    
+    private Role role;
+    private List<Role> roles;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
       
     @ManagedProperty("#{userClient}")
      private transient userClient service;
@@ -46,6 +66,10 @@ public class UserBean implements Serializable {
         GenericType<List<User>> gType = new GenericType<List<User>>() {
         };
         Users = service.getAll(gType);
+        
+           GenericType<List<Role>> gRoleType = new GenericType<List<Role>>() {
+        };
+        roles = service.getAllRoles(gRoleType);
     }
 
     public void setService(userClient service) {

@@ -180,8 +180,8 @@
                    </p:selectOneRadio>
                </h:panelGrid>
                 </p:panelGrid>
-                <p:commandButton id="btnDelete" update=":mainForm:UserTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{userBean.delete}"  />
-                <p:blockUI block=":deletePanel" trigger=":btnDelete">
+                <p:commandButton id="btnSaveRole" update=":mainForm:UserTable" oncomplete="PF('RolesDialog').hide();" value="Roles" icon="ui-icon-circle-check" actionListener="#{userBean.delete()}"  />
+                <p:blockUI block="RolePanel" trigger="btnSaveRole">
                     LOADING<br />
                     <p:graphicImage name="./images/45.gif" />
                 </p:blockUI>

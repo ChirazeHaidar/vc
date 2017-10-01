@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author mfaour
+ * @author Khalil bsaibes
  */
 public class UserController implements IUser {
 

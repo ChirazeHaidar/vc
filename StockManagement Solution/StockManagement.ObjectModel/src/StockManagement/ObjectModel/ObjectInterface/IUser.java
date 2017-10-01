@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author mfaour
+ * @author Khalil bsaibes
  */
 public interface IUser {
 

@@ -32,5 +32,10 @@
         <property name="prCode" type="int">
             <column name="PrCode" not-null="true" />
         </property>
+        
+        <property name="ordDbCr" type="int">
+            <column name="OrdDbCr" not-null="true" />
+        </property>
+        
     </class>
 </hibernate-mapping>

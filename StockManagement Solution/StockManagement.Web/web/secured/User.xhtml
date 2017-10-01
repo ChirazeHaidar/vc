@@ -175,7 +175,7 @@
                     </f:facet>
                     <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" width="200">
                    <p:outputLabel for="role" value="Roles:" />
-                   <p:selectManyCheckbox  id="role" value="#{userBean.selectedroles}" layout="grid" columns="2"  >
+                   <p:selectManyCheckbox  id="role" value="#{userBean.selectedrolesList(values)}"   layout="grid" columns="2"  >
                        <f:selectItems  value="#{userBean.roles}" var="r" itemLabel="#{r.roName}" itemValue="#{r.roCode}"/>
                    </p:selectManyCheckbox>
                </h:panelGrid>

@@ -186,4 +186,10 @@ public class UserBean implements Serializable {
 return false;
 }
        
+       public void selectedrolesList(String [] values) {
+  
+           System.out.println(values);
+}
+       
+       
 }

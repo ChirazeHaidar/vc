@@ -53,12 +53,16 @@
             <h:form id="formAdd">  <p:outputPanel id="newPanel" style="text-align:center;">
                     <p:panelGrid  columns="2"  columnClasses="label,value" >
                        
-
+                        
                         <h:outputText value="Source" />
-                        <p:inputText id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Destination" />
-                        <p:inputText id="orderDest" value="#{ordersBean.orderDest}" />
+                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Transaction code" />
                         <p:inputText id="orderTrCode" value="#{ordersBean.orderTrCode}" />
@@ -80,30 +84,31 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog> 
-        <p:dialog header="Edit company" widgetVar="editDialog" appendTo="@(body)" modal="true" height="150" resizable="false">
+        <p:dialog header="Edit order" widgetVar="editDialog" appendTo="@(body)" modal="true" height="240" resizable="false">
             <h:form id="formUpdate"> 
                 <p:outputPanel id="editPanel" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{companyBean.selectedCompany != null}"  columnClasses="label,value">
-                        <h:outputText value="Code" />
-                        <p:inputText id="orderCode" value="#{ordersBean.orderCode}" />
-
+                    <p:panelGrid  columns="2" rendered="#{ordersBean.selectedOrder != null}"  columnClasses="label,value">
                         <h:outputText value="Source" />
-                        <p:inputText id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Destination" />
-                        <p:inputText id="orderDest" value="#{ordersBean.orderDest}" />
+                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Transaction code" />
-                        <p:inputText id="orderTrCode" value="#{ordersBean.orderTrCode}" />
+                        <p:inputText id="orderTrCode" value="#{ordersBean.selectedOrder.transactionType.trCode}" />
                         
                         <h:outputText value="Order quantity" />
-                        <p:inputText id="orderQty" value="#{ordersBean.orderQty}" />
+                        <p:inputText id="orderQty" value="#{ordersBean.selectedOrder.ordQty}" />
                         
                         <h:outputText value="Order pr code" />
-                        <p:inputText id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <p:inputText id="orderPrCode" value="#{ordersBean.selectedOrder.prCode}" />
                         
                         <h:outputText value="Order debit/ credit" />
-                        <p:inputText id="orderDbCr" value="#{ordersBean.orderDbCr}" />
+                        <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
 
                     </p:panelGrid>
 
@@ -115,33 +120,34 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog> 
-        <p:dialog header="Company Info" widgetVar="infoDialog" appendTo="@(body)" modal="true" 
+        <p:dialog header="Order Info" widgetVar="infoDialog" appendTo="@(body)" modal="true" 
                   showEffect="blind" hideEffect="explode" resizable="false">
             <p:outputPanel id="pnlInfo" style="text-align:center;">
                 <p:panelGrid  columns="2" rendered="#{not empty ordersBean.selectedOrder}" columnClasses="label,value">
                     <f:facet name="header">
-                        <h:outputText value="Company" />
+                        <h:outputText value="Order" />
                     </f:facet>
-                    <h:outputText value="Code" />
-                    <h:outputText id="orderCode" value="#{ordersBean.orderCode}" />
-
                     <h:outputText value="Source" />
-                    <h:outputText id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
-                    <h:outputText value="Destination" />
-                    <h:outputText id="orderDest" value="#{ordersBean.orderDest}" />
+                        <h:outputText value="Destination" />
+                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                            <f:selectItems value="#{ordersBean.branches}" />
+                        </h:selectOneMenu>
                         
-                    <h:outputText value="Transaction code" />
-                    <h:outputText id="orderTrCode" value="#{ordersBean.orderTrCode}" />
+                        <h:outputText value="Transaction code" />
+                        <p:inputText id="orderTrCode" value="#{ordersBean.selectedOrder.transactionType.trCode}" />
                         
-                    <h:outputText value="Order quantity" />
-                    <h:outputText id="orderQty" value="#{ordersBean.orderQty}" />
+                        <h:outputText value="Order quantity" />
+                        <p:inputText id="orderQty" value="#{ordersBean.selectedOrder.ordQty}" />
                         
-                    <h:outputText value="Order pr code" />
-                    <h:outputText id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <h:outputText value="Order pr code" />
+                        <p:inputText id="orderPrCode" value="#{ordersBean.selectedOrder.prCode}" />
                         
-                    <h:outputText value="Order debit/ credit" />
-                    <h:outputText id="orderDbCr" value="#{ordersBean.orderDbCr}" />
+                        <h:outputText value="Order debit/ credit" />
+                        <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
                 </p:panelGrid>
             </p:outputPanel>
         </p:dialog>
@@ -153,13 +159,16 @@
                         <h:outputText value="Are you sure?" />
                     </f:facet>
                     <h:outputText value="Code" />
-                    <h:outputText value="#{ordersBean.selectedOrder.ordercode}" />
+                    <h:outputText value="#{ordersBean.selectedOrder.ordCode}" />
 
-                    <h:outputText value="Name" />
-                    <h:outputText value="#{ordersBean.selectedOrder.orderSrc}" />
+                    <h:outputText value="Quantity" />
+                    <h:outputText value="#{ordersBean.selectedOrder.ordQty}" />
 
-                    <h:outputText value="Description" />
-                    <h:outputText value="#{ordersBean.selectedOrder.orderDest}"/>
+                    <h:outputText value="Source" />
+                    <h:outputText value="#{ordersBean.selectedOrder.ordSource}"/>
+                    
+                    <h:outputText value="Destination" />
+                    <h:outputText value="#{ordersBean.selectedOrder.ordDestination}"/>
                 </p:panelGrid>
                 <p:commandButton id="btnDelete" update=":mainForm:ordersTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{ordersBean.delete}"  />
                 <p:blockUI block=":deletePanel" trigger=":btnDelete">

@@ -22,7 +22,7 @@ import javax.ws.rs.core.GenericType;
  *        client.close();
  * </pre>
  *
- * @author mfaour
+ * @author MikeRmaily
  */
 
 @ManagedBean(name="userClient")
@@ -39,7 +39,7 @@ public class userClient {
     }
 
     public <T> T add(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("add").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("add").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public <T> T removeRole(Object requestEntity, Class<T> responseType) throws ClientErrorException {

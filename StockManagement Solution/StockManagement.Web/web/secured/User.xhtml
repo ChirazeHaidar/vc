@@ -48,7 +48,7 @@
             </p:blockUI>
         </h:form>
       
-        <p:dialog  header="New User" widgetVar="newDialog" appendTo="@(body)" modal="true" height="120" resizable="false">
+        <p:dialog  header="New User" widgetVar="newDialog" appendTo="@(body)" modal="true" height="200" resizable="false">
             <h:form id="formAdd">  <p:outputPanel id="newPanel" style="text-align:center;">
                     <p:panelGrid  columns="2"  columnClasses="label,value" >
                         <h:outputText value="Full Name" />
@@ -75,7 +75,7 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog> 
-        <p:dialog header="Edit User" widgetVar="editDialog" appendTo="@(body)" modal="true" height="150" resizable="false">
+        <p:dialog header="Edit User" widgetVar="editDialog" appendTo="@(body)" modal="true" height="200" resizable="false">
             <h:form id="formUpdate"> 
                 <p:outputPanel id="editPanel" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{userBean.selectedUser != null}"  columnClasses="label,value">

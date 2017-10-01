@@ -75,7 +75,7 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog> 
-        <p:dialog header="Edit User" widgetVar="editDialog" appendTo="@(body)" modal="true" height="200" resizable="false">
+        <p:dialog header="Edit User" widgetVar="editDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
             <h:form id="formUpdate"> 
                 <p:outputPanel id="editPanel" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{userBean.selectedUser != null}"  columnClasses="label,value">
@@ -92,7 +92,7 @@
                          <p:inputText id="Editaddress" value="#{userBean.selectedUser.usrAddress}" />
                         
                          <h:outputText value="Mobile" />
-                         <p:inputText id="Editmobile" value="#{userBean.selectedUser.usrMobile}" />" 
+                         <p:inputText id="Editmobile" value="#{userBean.selectedUser.usrMobile}" /> 
 
                     </p:panelGrid>
 
@@ -149,7 +149,7 @@
                          <h:outputText id="deleteaddress" value="#{userBean.selectedUser.usrAddress}" />
                         
                          <h:outputText value="Mobile" />
-                         <h:outputText id="deletemobile" value="#{userBean.selectedUser.usrMobile}" />" 
+                         <h:outputText id="deletemobile" value="#{userBean.selectedUser.usrMobile}" />
                 </p:panelGrid>
                 <p:commandButton id="btnDelete" update=":mainForm:UserTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{userBean.delete}"  />
                 <p:blockUI block=":deletePanel" trigger=":btnDelete">

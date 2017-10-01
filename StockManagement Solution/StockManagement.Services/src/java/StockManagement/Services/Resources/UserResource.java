@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Khalil Bsaibes
+ * @author Mike Rmaily
  */
 @Path("User")
 public class UserResource {
@@ -109,7 +109,7 @@ public class UserResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/delete")
     public boolean delete(User user) {
@@ -117,7 +117,7 @@ public class UserResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/deleteById")
     public boolean delete(int usrCode) {

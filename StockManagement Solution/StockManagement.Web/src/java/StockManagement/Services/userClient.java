@@ -58,8 +58,9 @@ public class userClient {
     }
 
     public <T> T update(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("update").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("update").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
+    
 
     public <T> T assignRole(Object requestEntity, Class<T> responseType) throws ClientErrorException {
         return webTarget.path("assignRole").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
@@ -80,7 +81,7 @@ public class userClient {
     }
 
     public <T> T delete(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("deleteById").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("deleteById").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
 
     public <T> T getRoles(Class<T> responseType, String usrCode) throws ClientErrorException {

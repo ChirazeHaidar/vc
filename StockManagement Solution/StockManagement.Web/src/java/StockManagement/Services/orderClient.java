@@ -57,7 +57,7 @@ public class orderClient {
     }
 
     public <T> T delete(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
 
     public <T> T getByCompany(GenericType<T> responseType, String compCode) throws ClientErrorException {

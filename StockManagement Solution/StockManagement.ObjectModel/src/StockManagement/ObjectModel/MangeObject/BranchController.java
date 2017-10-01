@@ -205,6 +205,11 @@ public class BranchController implements IBranch {
         }
     }
     
+    /**
+     * ali chreif
+     * @param compCode
+     * @return 
+     */
     @Override
     public List<Branch> getByCompany(int compCode) {
           String query = "From Branch where CompCode = " + compCode;

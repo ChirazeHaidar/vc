@@ -40,7 +40,14 @@
                     <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete User">
                         <f:setPropertyActionListener value="#{itemUser}" target="#{userBean.selectedUser}" />
                     </p:commandButton>
-                </p:column>               
+                </p:column>        
+                
+               <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":RolePanel" icon="ui-icon-star" oncomplete="PF('RolesDialog').show()" title="User Roles">
+                        <f:setPropertyActionListener value="#{itemUser}" target="#{userBean.selectedUser}" />
+                    </p:commandButton>
+                </p:column> 
+                
             </p:dataTable>
             <p:blockUI widgetVar="loading1" block=":mainForm:UserTable" trigger=":mainForm:UserTable">
                 LOADING<br />
@@ -159,6 +166,27 @@
             </p:outputPanel>
         </p:dialog>
 
+          <p:dialog header="User Roles" widgetVar="RolesDialog" appendTo="@(body)" modal="true" 
+                  showEffect="blind" hideEffect="explode" resizable="false">
+            <p:outputPanel id="RolePanel" style="text-align:center;">
+                <p:panelGrid  columns="1" rendered="#{not empty userBean.selectedUser}" columnClasses="Radio">
+                    <f:facet name="header">
+                        <h:outputText value="User Roles" />
+                    </f:facet>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                   <p:outputLabel for="role" value="Roles:" />
+                   <p:selectOneRadio id="role" value="#{userBean.role}"  layout="grid" columns="3"  >
+                       <f:selectItems  value="#{userBean.role}" var="r" itemLabel="#{role}" itemValue="#{role}"/>
+                   </p:selectOneRadio>
+               </h:panelGrid>
+                </p:panelGrid>
+                <p:commandButton id="btnDelete" update=":mainForm:UserTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{userBean.delete}"  />
+                <p:blockUI block=":deletePanel" trigger=":btnDelete">
+                    LOADING<br />
+                    <p:graphicImage name="./images/45.gif" />
+                </p:blockUI>
+            </p:outputPanel>
+        </p:dialog>
       
     </ui:define>
 </ui:composition>

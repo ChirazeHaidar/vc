@@ -39,5 +39,7 @@ public interface IBranch {
     public List<Role> getRoles(int brCode);
     
     public List<Role> getExcludedRoles(int brCode);
+    
+    public List<Branch> getByCompany(int compCode);  
 
 }

@@ -5,17 +5,24 @@
  */
 package StockManamgement.Web.Beans;
 
+
 import StockManagement.ObjectModel.ValueObject.Role;
 import StockManagement.ObjectModel.ValueObject.User;
 import StockManagement.Services.userClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+
+import javax.faces.model.SelectItem;
 import javax.ws.rs.core.GenericType;
+
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -23,7 +30,7 @@ import org.primefaces.event.SelectEvent;
  * @author MikeRmaily
  */
 @ManagedBean(name = "userBean")
-@ViewScoped
+@SessionScoped
 public class UserBean implements Serializable {
 
     private String FullName;
@@ -37,16 +44,31 @@ public class UserBean implements Serializable {
     
     private Role role;
     private List<Role> roles;
-    private List<Role> Selectedroles;
 
-    public List<Role> getSelectedroles() {
-        return Selectedroles;
-    }
 
-    public void setSelectedroles(List<Role> Selectedroles) {
-        this.Selectedroles = Selectedroles;
-    }
+  
+
+  
+    private List<SelectItem> selectedroles;
+    private String[] rolesSelected;
     
+    public List<SelectItem> getSelectedroles() {
+        return selectedroles;
+    }
+
+    public void setSelectedroles(List<SelectItem> selectedroles) {
+        this.selectedroles = selectedroles;
+    }
+
+    public String[] getRolesSelected() {
+        return rolesSelected;
+    }
+
+    public void setRolesSelected(String[] rolesSelected) {
+        this.rolesSelected = rolesSelected;
+    }
+
+  
     public Role getRole() {
         return role;
     }
@@ -79,6 +101,14 @@ public class UserBean implements Serializable {
            GenericType<List<Role>> gRoleType = new GenericType<List<Role>>() {
         };
         roles = service.getAllRoles(gRoleType);
+        selectedroles =  new ArrayList<>();
+       for (Role itemRole : roles) {
+        SelectItem si = new SelectItem();
+        si.setLabel(itemRole.getRoName());
+        si.setValue(itemRole.getRoCode());
+        selectedroles.add(si);
+    }
+        
     }
 
     public void setService(userClient service) {
@@ -170,12 +200,23 @@ public class UserBean implements Serializable {
     }
         
         
-    public void SaveRoles() {
-      //  service.update(selectedUser, String.class);
-      //  refreshData();
-      System.out.println(Selectedroles.size());
-        MessageView.Info("Info", "Roles updated successfully.");
-    }
+//    public void saveRoles() {
+//      //  service.update(selectedUser, String.class);
+//      //  refreshData();
+//      System.out.println(this.rolesSelected.length);
+//        MessageView.Info("Info", "Roles updated successfully.");
+//    }
+    public void saveRoles() {
+	if (this.selectedUser !=null){
+        
+         if (this.rolesSelected != null) {
+               System.out.println(this.rolesSelected.length);
+         }
+        this.rolesSelected = null;
+         MessageView.Info("Info", "Roles updated successfully.");
+        }	
+	}
+    
         
        public boolean onRowSelect(SelectEvent event) {
 //          Integer BrdCode = ((Brand) event.getObject()).getBrdCode();
@@ -185,11 +226,7 @@ public class UserBean implements Serializable {
 //          return  products !=null;
 return false;
 }
-       
-       public void selectedrolesList(String [] values) {
   
-           System.out.println(values);
-}
-       
+    
        
 }

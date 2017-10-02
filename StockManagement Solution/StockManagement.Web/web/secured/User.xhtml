@@ -173,18 +173,20 @@
                     <f:facet name="header">
                         <h:outputText value="User Roles" />
                     </f:facet>
-                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" width="200">
-                   <p:outputLabel for="role" value="Roles:" />
-                   <p:selectManyCheckbox  id="role" value="#{userBean.selectedrolesList(values)}"   layout="grid" columns="2"  >
-                       <f:selectItems  value="#{userBean.roles}" var="r" itemLabel="#{r.roName}" itemValue="#{r.roCode}"/>
-                   </p:selectManyCheckbox>
+                  <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" width="200">
+                 
+                   <h:form>
+                       <h:selectManyCheckbox rendered="#{not empty userBean.selectedUser}" value="#{userBean.rolesSelected}">
+               
+ <f:selectItems value="#{userBean.selectedroles}" var="item" itemValue="#{item.label}"  itemLabel="#{item.value}"/>
+ <br></br>
+ <h:commandButton id="saveroles" rendered="#{not empty userBean.selectedUser}" value="Save Roles" 
+                                 action="#{userBean.saveRoles}"  />
+                   </h:selectManyCheckbox>
+                   </h:form>
                </h:panelGrid>
                 </p:panelGrid>
-                <p:commandButton id="btnSaveRole" update=":mainForm:UserTable" oncomplete="PF('RolesDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{userBean.SaveRoles}"  />
-                <p:blockUI block="RolePanel" trigger="btnSaveRole">
-                    LOADING<br />
-                    <p:graphicImage name="./images/45.gif" />
-                </p:blockUI>
+
             </p:outputPanel>
         </p:dialog>
       

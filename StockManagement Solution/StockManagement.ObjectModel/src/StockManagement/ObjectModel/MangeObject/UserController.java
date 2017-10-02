@@ -55,20 +55,19 @@ public class UserController implements IUser {
         return (User) objUser;
     }
 
-    @Override
-    public List<Role> getRoles(User user) {
-        List<Role> roles = _session.createQuery("Select Role.* From User, UserRole where "
-                + "User.UsrCode = UserRole.UsrCode and User.UsrCode =  " + user.getUsrCode()).list();
-        if (null == roles || roles.isEmpty()) {
-            return null;
-        }
-        return roles;
-    }
+//    @Override
+//    public List<Role> getRoles(User user) {
+//        List<Role> roles = _session.createQuery("Select Role.* From User, UserRole where "
+//                + "User.UsrCode = UserRole.UsrCode and User.UsrCode =  " + user.getUsrCode()).list();
+//        if (null == roles || roles.isEmpty()) {
+//            return null;
+//        }
+//        return roles;
+//    }
 
     @Override
     public List<Role> getRoles(int usrCode) {
-        List<Role> roles = _session.createQuery("Select Role.* From User, UserRole where "
-                + "User.UsrCode = UserRole.UsrCode and User.UsrCode =  " + usrCode).list();
+        List<Role> roles = _session.createSQLQuery("Select * from Role where Role.RoCode in (Select UserRole.RoCode From User, UserRole where User.UsrCode = UserRole.UsrCode and User.UsrCode =" + usrCode + ")").list();
         if (null == roles || roles.isEmpty()) {
             return null;
         }

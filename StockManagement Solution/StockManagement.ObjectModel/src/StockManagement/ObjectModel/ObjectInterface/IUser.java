@@ -20,7 +20,7 @@ public interface IUser {
 //    public Role getRole(int RoleCode);
     public List<User> getByBranch(int brCode);
 
-    public List<Role> getRoles(User user);
+//    public List<Role> getRoles(User user);
 
     public List<Role> getRoles(int usrCode);
      

@@ -26,6 +26,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import org.primefaces.model.DualListModel;
 
@@ -205,7 +206,11 @@ public class OrdersBean implements Serializable {
         String compCode = params.get("compId");
         if ( compCode == null || compCode.isEmpty())
             compCode = "1";
-        orders = service.getByCompany(gType, compCode);
+        
+        HttpSession session = SessionUtils.getSession();
+        User u = (User)session.getAttribute("CurrentUser");
+        
+        orders = service.getByCompany(gType, compCode, u.getUsrCode().toString());
         
         branchClient bc = new branchClient();
         lb = bc.getByCompany(gType2, compCode);
@@ -225,8 +230,10 @@ public class OrdersBean implements Serializable {
         Order o = new Order();
         Company c = new Company();
 
-        userClient client = new userClient();
-        User u = client.get(User.class, "1"); 
+        HttpSession session = SessionUtils.getSession();
+        //userClient client = new userClient();
+        User u = (User)session.getAttribute("CurrentUser");
+        //User u = client.get(User.class, "1"); 
 
         companyClient company = new companyClient();
         c = company.get(Company.class, "1");

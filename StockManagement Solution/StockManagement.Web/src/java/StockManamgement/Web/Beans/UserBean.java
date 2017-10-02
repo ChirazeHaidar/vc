@@ -102,6 +102,9 @@ public class UserBean implements Serializable {
         
            GenericType<List<Role>> gRoleType = new GenericType<List<Role>>() {
         };
+          
+        
+           
         roles = service.getAllRoles(gRoleType);
         selectedroles =  new ArrayList<>();
        for (Role itemRole : roles) {

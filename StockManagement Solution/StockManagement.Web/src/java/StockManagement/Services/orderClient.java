@@ -60,9 +60,9 @@ public class orderClient {
         return webTarget.path("delete").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
 
-    public <T> T getByCompany(GenericType<T> responseType, String compCode) throws ClientErrorException {
+    public <T> T getByCompany(GenericType<T> responseType, String compCode, String usrCode) throws ClientErrorException {
         WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("getByCompany/{0}", new Object[]{compCode}));
+        resource = resource.path(java.text.MessageFormat.format("getByCompany/{0}/{1}", new Object[]{compCode,usrCode}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

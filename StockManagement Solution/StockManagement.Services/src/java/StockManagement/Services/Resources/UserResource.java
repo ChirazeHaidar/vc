@@ -149,5 +149,12 @@ public class UserResource {
     public boolean removeRole(UserRole userRole) {
         return _controller.removeRole(userRole);
     }
-
+    
+//     @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/code/{roCode}")
+//    public Role getRole(@PathParam("roCode") int roCode) {
+//        return _controller.getRole(roCode);
+//    }
+//       
 }

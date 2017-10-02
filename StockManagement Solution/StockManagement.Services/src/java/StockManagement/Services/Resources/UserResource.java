@@ -45,14 +45,6 @@ public class UserResource {
     public User get(@PathParam("usrCode") int usrCode) {
         return _controller.get(usrCode);
     }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/getRoles")
-    public List<Role> getRoles(User user) {
-        return _controller.getRoles(user);
-    }
     
     
     @GET
@@ -65,6 +57,7 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/roles/{usrCode}")
     public List<Role> getRoles(@PathParam("usrCode") int usrCode) {
         return _controller.getRoles(usrCode);

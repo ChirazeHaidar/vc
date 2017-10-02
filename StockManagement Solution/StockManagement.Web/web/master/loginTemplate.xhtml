@@ -11,32 +11,28 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Stock management - Login</title>
-       
+
     </h:head>
 
     <h:body>
-<p:layout fullPage="true">
-
-            <p:layoutUnit position="north" size="100" >
-                <ui:insert name="top">
-                    <ui:include src="./header.xhtml"></ui:include>
-                </ui:insert>
+        <p:layout fullPage="true"> 
+            <p:layoutUnit position="center">                
+                <div id="content"  style="height:100%">
+                    <center style="margin-bottom:20px;">
+                        <a href="#{request.contextPath}">
+                            <img src="#{request.contextPath}/resources/images/phoenix-logo.png" alt=""/>      
+                        </a>
+                    </center>
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
             </p:layoutUnit>
-
             <p:layoutUnit position="south" size="100" >
                 <ui:insert name="bottom">
                     <ui:include src="./footer.xhtml"></ui:include>
                 </ui:insert>
             </p:layoutUnit>
-
-            <p:layoutUnit position="center">
-                <div id="content"  style="height:100%">
-                    <ui:insert name="content">Content</ui:insert>
-                </div>
-            </p:layoutUnit>
-
         </p:layout>
-        
+
 
     </h:body>
 

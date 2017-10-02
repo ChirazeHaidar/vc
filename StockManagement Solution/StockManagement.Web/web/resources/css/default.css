@@ -35,3 +35,21 @@ a:link:hover, a:visited:hover  {
     font-size: 12px;
     
 }
+.ui-menu .ui-menuitem-link .ui-menuitem-icon{
+    margin-right:5px !important;
+}
+.ui-menu{
+    width:212px !important;
+}
+.ui-menu .ui-menu-list .ui-widget-header{
+    display:none;
+}
+.ui-layout-unit-header-title, .ui-layout-unit-footer-title {
+    font-size: 16px;
+}
+.ui-menu .ui-menuitem{
+    font-size:12px;
+}
+.ui-menu .ui-menuitem-link{
+    width:95% !important;
+}

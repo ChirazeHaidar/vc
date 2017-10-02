@@ -168,8 +168,8 @@ public class OrderController implements IOrder {
     }
 
     @Override
-    public List<Order> getByCompany(int compCode) {
-          String query = "From Order where CompCode = " + compCode;
+    public List<Order> getByCompany(int compCode, int usrCode) {
+          String query = "From Order where CompCode = " + compCode + "and UsrCode = " + usrCode;
           
          List<Order> orders = _session.createQuery(query).list();
         if (null == orders || orders.isEmpty()) {

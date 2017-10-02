@@ -95,9 +95,9 @@ public class OrderResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/getByCompany/{compCode}")
-    public List<Order> getByCompany(@PathParam("compCode") int compCode) {
-         List<Order> orders =   _controller.getByCompany(compCode);
+    @Path("/getByCompany/{compCode}/{usrCode}")
+    public List<Order> getByCompany(@PathParam("compCode") int compCode, @PathParam("usrCode") int usrCode) {
+         List<Order> orders =   _controller.getByCompany(compCode,usrCode);
         if ( null == orders || orders.isEmpty())
             return null;
         List<Order> list = new ArrayList();

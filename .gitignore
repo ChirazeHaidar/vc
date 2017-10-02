@@ -23,7 +23,7 @@ hs_err_pid*
 /StockManagement Solution/StockManagement.ObjectModel/nbproject/private/*.*
 /StockManagement Solution/StockManagement.Services/nbproject/private/
 /StockManagement Solution/StockManagement.Web/nbproject/private/
-*private*.*
+*private*/*.*
 /StockManagement Solution/StockManagement.Web/nbproject/private/*.*
 /StockManagement Solution/StockManagement.Web/build/
 /StockManagement Solution/StockManagement.Services/build/

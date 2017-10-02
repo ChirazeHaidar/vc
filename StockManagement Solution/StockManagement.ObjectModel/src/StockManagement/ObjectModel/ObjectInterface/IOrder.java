@@ -26,7 +26,7 @@ public interface IOrder {
 
     public List<Order> getByDestination(OrderRoute orderRoute);
 
-    public List<Order> getByCompany(int compCode);
+    public List<Order> getByCompany(int compCode, int usrCode);
     
-    public List<Order> getAll();
+    public List<Order> getAll(); 
 }

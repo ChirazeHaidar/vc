@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 
 @ManagedBean
@@ -44,6 +45,8 @@ public class UserManager {
 
         if (currentUser != null) {
             //LOGGER.info("login successful for '{}'", username);
+            HttpSession session = SessionUtils.getSession();
+            session.setAttribute("CurrentUser", currentUser);
 
             return navigationBean.redirectToHome();
         } else {

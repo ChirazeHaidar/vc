@@ -8,11 +8,13 @@ package StockManamgement.Web.Beans;
 
 import StockManagement.ObjectModel.ValueObject.Role;
 import StockManagement.ObjectModel.ValueObject.User;
+import StockManagement.ObjectModel.ValueObject.UserRole;
 import StockManagement.Services.userClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -210,10 +212,21 @@ public class UserBean implements Serializable {
 	if (this.selectedUser !=null){
         
          if (this.rolesSelected != null) {
-               System.out.println(this.rolesSelected.length);
+               for (String RoleID : rolesSelected) {
+//                    GenericType<Role> gType = new GenericType<Role>() {};
+//                   UserRole usrRole = new UserRole();
+//                   usrRole.setRole(service.getRole(gType, RoleID));
+                    UserRole usrRole = new UserRole();
+                   Optional<Role> matchingObjects  = roles.stream().filter(p -> p.getRoCode().toString().equals(RoleID)).findFirst();
+                   Role curRole = matchingObjects.orElse(null); 
+                   usrRole.setUser(selectedUser);
+                     usrRole.setRole(curRole);
+                   service.assignRole(usrRole,String.class);
+                     MessageView.Info("Info", "Roles updated successfully.");
+    }
          }
         this.rolesSelected = null;
-         MessageView.Info("Info", "Roles updated successfully.");
+       
         }	
 	}
     

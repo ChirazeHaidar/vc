@@ -247,4 +247,16 @@ public class UserController implements IUser {
         return users.get(0);
     }
 
+  
+//    public Role getRole(int roCode) {
+//        
+//          RoleController controller = new RoleController();
+//            Role role = controller.get(roCode);
+//       
+//        if (null == role) {
+//            return null;
+//        }
+//        return (Role) role;
+//    }
+//    
 }

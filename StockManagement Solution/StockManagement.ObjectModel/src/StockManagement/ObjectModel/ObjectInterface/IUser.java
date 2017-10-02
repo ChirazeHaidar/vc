@@ -17,7 +17,7 @@ public interface IUser {
     public List<User> getAll();
 
     public User get(int usrCode);
-
+//    public Role getRole(int RoleCode);
     public List<User> getByBranch(int brCode);
 
     public List<Role> getRoles(User user);

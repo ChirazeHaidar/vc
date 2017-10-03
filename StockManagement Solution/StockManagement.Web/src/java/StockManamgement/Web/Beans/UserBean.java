@@ -47,12 +47,18 @@ public class UserBean implements Serializable {
     private Role role;
     private List<Role> roles;
 
-
-  
-
-  
     private List<SelectItem> selectedroles;
+    private List<Role> UserRoles;
+     
     private String[] rolesSelected;
+
+    public List<Role> getUserRoles() {
+        return UserRoles;
+    }
+
+    public void setUserRoles(List<Role> UserRoles) {
+        this.UserRoles = UserRoles;
+    }
     
     public List<SelectItem> getSelectedroles() {
         return selectedroles;
@@ -102,9 +108,7 @@ public class UserBean implements Serializable {
         
            GenericType<List<Role>> gRoleType = new GenericType<List<Role>>() {
         };
-          
-        
-           
+
         roles = service.getAllRoles(gRoleType);
         selectedroles =  new ArrayList<>();
        for (Role itemRole : roles) {
@@ -233,14 +237,21 @@ public class UserBean implements Serializable {
         }	
 	}
     
-        
-       public boolean onRowSelect(SelectEvent event) {
-//          Integer BrdCode = ((Brand) event.getObject()).getBrdCode();
-//        GenericType<List<Product>> gType = new GenericType<List<Product>>() {};
-//       products = service.getProducts(gType, BrdCode);
-//     //   setProducts(products);
-//          return  products !=null;
-return false;
+        GenericType<List<Role>> gUserRoleType = new GenericType<List<Role>>() {};  
+       public void onRowSelect(SelectEvent event) {
+         Integer UsrCode = ((User) event.getObject()).getUsrCode();
+
+      
+
+       UserRoles = service.getRoles(gUserRoleType,UsrCode.toString());
+        selectedroles =  new ArrayList<>();
+       for (Role itemRole : UserRoles) {
+        SelectItem si = new SelectItem();
+        si.setLabel(itemRole.getRoName());
+        si.setValue(itemRole.getRoCode());
+        selectedroles.add(si);
+    }
+
 }
   
     

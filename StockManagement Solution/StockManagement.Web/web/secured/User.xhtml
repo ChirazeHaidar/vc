@@ -18,7 +18,7 @@
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-             
+             <p:ajax  id="LoadRoles" event="rowSelect" listener="#{userBean.onRowSelect}"/>
                 <p:column headerText="Full Name">${itemUser.usrFullname}</p:column>
                 <p:column headerText="Username">${itemUser.usrUsername}</p:column>
                 <p:column headerText="Password">${itemUser.usrPassword}</p:column>

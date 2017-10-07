@@ -18,7 +18,7 @@
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-             <p:ajax  id="LoadRoles" event="rowSelect" listener="#{userBean.onRowSelect}"/>
+<!--             <p:ajax  id="LoadRoles" event="rowSelect" listener="#{userBean.onRowSelect}"/>-->
                 <p:column headerText="Full Name">${itemUser.usrFullname}</p:column>
                 <p:column headerText="Username">${itemUser.usrUsername}</p:column>
                 <p:column headerText="Password">${itemUser.usrPassword}</p:column>
@@ -43,8 +43,9 @@
                 </p:column>        
                 
                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":RolePanel" icon="ui-icon-star" oncomplete="PF('RolesDialog').show()" title="User Roles">
+                   <p:commandButton update=":RolePanel" icon="ui-icon-star" oncomplete="PF('RolesDialog').show()" title="User Roles">
                         <f:setPropertyActionListener value="#{itemUser}" target="#{userBean.selectedUser}" />
+                        <f:actionListener binding="#{userBean.GetUserRoles(itemUser.usrCode)}"/>
                     </p:commandButton>
                 </p:column> 
                 
@@ -170,9 +171,7 @@
                   showEffect="blind" hideEffect="explode" resizable="false">
             <p:outputPanel id="RolePanel" style="text-align:center;">
                 <p:panelGrid  columns="1" rendered="#{not empty userBean.selectedUser}" columnClasses="Radio">
-                    <f:facet name="header">
-                        <h:outputText value="User Roles" />
-                    </f:facet>
+                  
                   <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" width="200">
                  
                    <h:form>
@@ -181,7 +180,11 @@
  <f:selectItems value="#{userBean.selectedroles}" var="item" itemValue="#{item.label}"  itemLabel="#{item.value}"/>
  <br></br>
  <h:commandButton id="saveroles" rendered="#{not empty userBean.selectedUser}" value="Save Roles" 
-                                 action="#{userBean.saveRoles}"  />
+                  action="#{userBean.saveRoles}"  style="position: absolute;margin-top: 23px;margin-left: 33px;" />
+ 
+  <h:commandButton id="Deleteroles" rendered="#{not empty userBean.selectedUser}" value="Delete Roles" 
+                  action="#{userBean.deleteRoles}"  style="position: absolute;margin-top: 23px;margin-left: -60px;" />
+  
                    </h:selectManyCheckbox>
                    </h:form>
                </h:panelGrid>

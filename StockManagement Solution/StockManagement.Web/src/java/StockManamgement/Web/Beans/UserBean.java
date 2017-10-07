@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -48,6 +49,34 @@ public class UserBean implements Serializable {
     private List<Role> roles;
 
     private List<SelectItem> selectedroles;
+     private List<SelectItem> Notselectedroles;
+
+    public List<SelectItem> getNotselectedroles() {
+        return Notselectedroles;
+    }
+
+    public void setNotselectedroles(List<SelectItem> Notselectedroles) {
+        this.Notselectedroles = Notselectedroles;
+    }
+
+    public List<SelectItem> getSelectedUserroles() {
+        return selectedUserroles;
+    }
+
+    public void setSelectedUserroles(List<SelectItem> selectedUserroles) {
+        this.selectedUserroles = selectedUserroles;
+    }
+
+    public GenericType<List<Role>> getgUserRoleType() {
+        return gUserRoleType;
+    }
+
+    public void setgUserRoleType(GenericType<List<Role>> gUserRoleType) {
+        this.gUserRoleType = gUserRoleType;
+    }
+
+
+    private List<SelectItem> selectedUserroles;
     private List<Role> UserRoles;
      
     private String[] rolesSelected;
@@ -114,7 +143,7 @@ public class UserBean implements Serializable {
        for (Role itemRole : roles) {
         SelectItem si = new SelectItem();
         si.setLabel(itemRole.getRoName());
-        si.setValue(itemRole.getRoCode());
+        si.setValue(itemRole.getRoCode());  
         selectedroles.add(si);
     }
         
@@ -238,22 +267,51 @@ public class UserBean implements Serializable {
 	}
     
         GenericType<List<Role>> gUserRoleType = new GenericType<List<Role>>() {};  
-       public void onRowSelect(SelectEvent event) {
-         Integer UsrCode = ((User) event.getObject()).getUsrCode();
+//       public void onRowSelect(SelectEvent event) {
+//         Integer UsrCode = ((User) event.getObject()).getUsrCode();
+//
+//      
+//
+//       UserRoles = service.getRoles(gUserRoleType,UsrCode.toString());
+//        selectedroles =  new ArrayList<>();
+//       for (Role itemRole : UserRoles) {
+//        SelectItem si = new SelectItem();
+//        si.setLabel(itemRole.getRoName());
+//        si.setValue(itemRole.getRoCode());
+//        selectedroles.add(si);
+//    }
+//
+//}
 
-      
-
-       UserRoles = service.getRoles(gUserRoleType,UsrCode.toString());
-        selectedroles =  new ArrayList<>();
-       for (Role itemRole : UserRoles) {
-        SelectItem si = new SelectItem();
-        si.setLabel(itemRole.getRoName());
-        si.setValue(itemRole.getRoCode());
-        selectedroles.add(si);
-    }
-
-}
-  
+        public void GetUserRoles(int usrID) {
+            UserRoles = service.getRoles(gUserRoleType,Integer.toString(usrID));
+            if (UserRoles != null){
+               for (Role itemRole : UserRoles) {
+                 Optional<SelectItem> matchingObject  = selectedroles.stream().filter(p -> p.getValue().toString().equals(itemRole.getRoCode().toString())).findFirst();
+                   SelectItem curRole = matchingObject.orElse(null); 
+                   if (curRole != null){
+                         curRole.setDisabled(true);
+                   }
+               }
+             }
+                if (UserRoles == null){
+                     
+                selectedroles.forEach(f -> f.setDisabled(false));
+                }
+        }
+        
+        
+         public void deleteRoles() {
+	if (this.selectedUser !=null){
+           UserRoles = service.getRoles(gUserRoleType,Integer.toString(selectedUser.getUsrCode()));
+            for (Role itemRole : UserRoles) {
+                  UserRole usrRole = new UserRole();
+                   usrRole.setUser(selectedUser);
+                   usrRole.setRole(itemRole);
+                   service.removeRole(usrRole,String.class);
+            }
+            }	
+	}
     
        
 }

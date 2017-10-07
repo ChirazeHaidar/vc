@@ -113,6 +113,11 @@ public class UserManager {
     public User getCurrentUser() {
         return currentUser;
     }
+    
+    public String GoToLogin() {
+        return null;
+  
+}
 
     // do not provide a setter for currentUser!
 }

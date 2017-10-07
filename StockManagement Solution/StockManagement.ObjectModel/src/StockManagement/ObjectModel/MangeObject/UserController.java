@@ -8,6 +8,7 @@ package StockManagement.ObjectModel.MangeObject;
 import StockManagement.ObjectModel.ObjectInterface.IUser;
 import StockManagement.ObjectModel.Utilities.HibernateUtil;
 import StockManagement.ObjectModel.ValueObject.*;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -67,20 +68,37 @@ public class UserController implements IUser {
 
     @Override
     public List<Role> getRoles(int usrCode) {
-        List<Role> roles = _session.createSQLQuery("Select * from Role where Role.RoCode in (Select UserRole.RoCode From User, UserRole where User.UsrCode = UserRole.UsrCode and User.UsrCode =" + usrCode + ")").list();
-        if (null == roles || roles.isEmpty()) {
+          try{
+        List<Object[]> Objectroles = _session.createSQLQuery("Select * from Role where Role.RoCode in (Select UserRole.RoCode From User, UserRole where User.UsrCode = UserRole.UsrCode and User.UsrCode =" + usrCode + ")").list();
+        if (null == Objectroles || Objectroles.isEmpty()) {
             return null;
         }
+        
+        List<Role> roles= new ArrayList<>();
+         for (Object[] record : Objectroles){
+
+            Role role = new Role();
+            role.setRoCode((Integer) record[0]);
+            role.setRoName((String) record[1]);
+            roles.add(role);
+         }
+        
         return roles;
+         }catch (Exception ex){
+           System.out.println(ex);
+       }
+        return null;
     }
     
         @Override
     public List<Role> getAllRoles() {
+    
         List<Role> roles = _session.createQuery("From Role").list();
         if (null == roles || roles.isEmpty()) {
             return null;
         }
         return roles;
+      
     }
 
     @Override
@@ -213,7 +231,7 @@ public class UserController implements IUser {
             }
              
             Transaction tx = _session.beginTransaction();
-            _session.createQuery("delete from UserRole where UsrCode= " + userRole.getUser().getUsrCode() +" RoCode ="+userRole.getRole().getRoCode()).executeUpdate();
+            _session.createQuery("delete from UserRole where UsrCode= " + userRole.getUser().getUsrCode() +" and RoCode ="+userRole.getRole().getRoCode()).executeUpdate();
             tx.commit();
             return true;
         } catch (Exception e) {

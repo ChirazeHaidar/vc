@@ -60,7 +60,12 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/roles/{usrCode}")
     public List<Role> getRoles(@PathParam("usrCode") int usrCode) {
+        try{
         return _controller.getRoles(usrCode);
+         }catch (Exception ex){
+           System.out.println(ex);
+       }
+        return null;
     }
 
     @GET

@@ -84,9 +84,9 @@
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.orderDbCr}" />
                         
-                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
-                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
-                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <p:inputText  style="visibility: hidden" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: hidden" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: hidden" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
 
                     </p:panelGrid>
                     <p:commandButton id="btnAdd" update=":mainForm:ordersTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{ordersBean.add}"  />
@@ -131,9 +131,9 @@
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
                         
-                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
-                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
-                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <p:inputText  style="visibility: hidden" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: hidden" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: hidden" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
 
 
                     </p:panelGrid>
@@ -183,9 +183,9 @@
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
                         
-                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
-                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
-                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <p:inputText  style="visibility: hidden" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: hidden" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: hidden" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
 
                         
                 </p:panelGrid>

@@ -49,18 +49,22 @@
                 <p:graphicImage name="./images/45.gif" />
             </p:blockUI>
         </h:form>
-        <p:dialog  header="New order" widgetVar="newDialog" appendTo="@(body)" modal="true" height="240" resizable="false">
+        <p:dialog  header="New order" widgetVar="newDialog" appendTo="@(body)" modal="true" height="340" resizable="false">
             <h:form id="formAdd">  <p:outputPanel id="newPanel" style="text-align:center;">
                     <p:panelGrid  columns="2"  columnClasses="label,value" >
                        
                         
                         <h:outputText value="Source" />
-                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderSrc" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderSrc').value = 
+                        document.getElementById('formAdd:sorderSrc').options[document.getElementById('formAdd:sorderSrc').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
                         <h:outputText value="Destination" />
-                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderDest" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderDest').value = 
+                        document.getElementById('formAdd:sorderDest').options[document.getElementById('formAdd:sorderDest').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
@@ -71,10 +75,19 @@
                         <p:inputText id="orderQty" value="#{ordersBean.orderQty}" />
                         
                         <h:outputText value="Order pr code" />
-                        <p:inputText id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+                        <h:selectOneMenu id = "sorderPrCode" value="#{ordersBean.product}"
+                        onchange="document.getElementById('formAdd:orderPrCode').value = 
+                        document.getElementById('formAdd:sorderPrCode').options[document.getElementById('formAdd:sorderPrCode').selectedIndex].value;">
+                            <f:selectItems value="#{ordersBean.products}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.orderDbCr}" />
+                        
+                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+
                     </p:panelGrid>
                     <p:commandButton id="btnAdd" update=":mainForm:ordersTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{ordersBean.add}"  />
                     <p:blockUI block=":formAdd:newPanel" trigger=":formAdd:btnAdd">
@@ -89,12 +102,16 @@
                 <p:outputPanel id="editPanel" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{ordersBean.selectedOrder != null}"  columnClasses="label,value">
                         <h:outputText value="Source" />
-                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderSrc" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderSrc').value = 
+                        document.getElementById('formAdd:sorderSrc').options[document.getElementById('formAdd:sorderSrc').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
                         <h:outputText value="Destination" />
-                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderDest" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderDest').value = 
+                        document.getElementById('formAdd:sorderDest').options[document.getElementById('formAdd:sorderDest').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
@@ -105,10 +122,19 @@
                         <p:inputText id="orderQty" value="#{ordersBean.selectedOrder.ordQty}" />
                         
                         <h:outputText value="Order pr code" />
-                        <p:inputText id="orderPrCode" value="#{ordersBean.selectedOrder.prCode}" />
+                        <h:selectOneMenu id = "sorderPrCode" value="#{ordersBean.product}"
+                        onchange="document.getElementById('formAdd:orderPrCode').value = 
+                        document.getElementById('formAdd:sorderPrCode').options[document.getElementById('formAdd:sorderPrCode').selectedIndex].value;">
+                            <f:selectItems value="#{ordersBean.products}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
+                        
+                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+
 
                     </p:panelGrid>
 
@@ -128,12 +154,16 @@
                         <h:outputText value="Order" />
                     </f:facet>
                     <h:outputText value="Source" />
-                        <h:selectOneMenu id = "orderSrc" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderSrc" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderSrc').value = 
+                        document.getElementById('formAdd:sorderSrc').options[document.getElementById('formAdd:sorderSrc').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
                         <h:outputText value="Destination" />
-                        <h:selectOneMenu id = "orderDest" value="#{ordersBean.branch}">
+                        <h:selectOneMenu id = "sorderDest" value="#{ordersBean.branch}"
+                        onchange="document.getElementById('formAdd:orderDest').value = 
+                        document.getElementById('formAdd:sorderDest').options[document.getElementById('formAdd:sorderDest').selectedIndex].value;">
                             <f:selectItems value="#{ordersBean.branches}" />
                         </h:selectOneMenu>
                         
@@ -144,10 +174,20 @@
                         <p:inputText id="orderQty" value="#{ordersBean.selectedOrder.ordQty}" />
                         
                         <h:outputText value="Order pr code" />
-                        <p:inputText id="orderPrCode" value="#{ordersBean.selectedOrder.prCode}" />
+                        <h:selectOneMenu id = "sorderPrCode" value="#{ordersBean.product}"
+                        onchange="document.getElementById('formAdd:orderPrCode').value = 
+                        document.getElementById('formAdd:sorderPrCode').options[document.getElementById('formAdd:sorderPrCode').selectedIndex].value;">
+                            <f:selectItems value="#{ordersBean.products}" />
+                        </h:selectOneMenu>
                         
                         <h:outputText value="Order debit/ credit" />
                         <p:inputText id="orderDbCr" value="#{ordersBean.selectedOrder.ordDbCr}" />
+                        
+                        <p:inputText  style="visibility: visible" id="orderSrc" value="#{ordersBean.orderSrc}" />
+                        <p:inputText  style="visibility: visible" id="orderDest" value="#{ordersBean.orderDest}" />
+                        <p:inputText  style="visibility: visible" id="orderPrCode" value="#{ordersBean.orderPrCode}" />
+
+                        
                 </p:panelGrid>
             </p:outputPanel>
         </p:dialog>

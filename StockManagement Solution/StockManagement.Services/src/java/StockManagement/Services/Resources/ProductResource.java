@@ -11,9 +11,11 @@ import StockManagement.ObjectModel.ObjectInterface.IProduct;
 import StockManagement.ObjectModel.Utilities.StatusEnum;
 import StockManagement.ObjectModel.ValueObject.BranchProduct;
 import StockManagement.ObjectModel.ValueObject.Brand;
+import StockManagement.ObjectModel.ValueObject.Order;
 import StockManagement.ObjectModel.ValueObject.Stock;
 import StockManagement.ObjectModel.ValueObject.StockProduct;
 import StockManagement.ObjectModel.ValueObject.Supplier;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -30,12 +32,23 @@ public class ProductResource {
     public ProductResource() {
         _controller = new ProductController();
     }
-
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Product> getAll() {
-        return null;
-        // throw (new Exception("Not implemented exception"));
+        List<Product> prdts =  _controller.getAll();
+        if ( null == prdts || prdts.isEmpty())
+            return null;
+        List<Product> list = new ArrayList();
+        for(int i=0;i<prdts.size();i++)
+        {
+            Product original = prdts.get(i);
+            Product copy = new Product();
+            copy.setPrCode(original.getPrCode());
+            copy.setPrName(original.getPrName());
+            list.add(copy);
+        }
+        return list;
     }
 
     @GET

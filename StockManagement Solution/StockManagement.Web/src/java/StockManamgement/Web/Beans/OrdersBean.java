@@ -6,12 +6,15 @@
 package StockManamgement.Web.Beans;
 
 import StockManagement.ObjectModel.ValueObject.Branch;
+import StockManagement.ObjectModel.ValueObject.Brand;
 import StockManagement.ObjectModel.ValueObject.Company;
 import StockManagement.ObjectModel.ValueObject.Order;
+import StockManagement.ObjectModel.ValueObject.Product;
 import StockManagement.ObjectModel.ValueObject.User;
 import StockManagement.Services.branchClient;
 import StockManagement.Services.companyClient;
 import StockManagement.Services.orderClient;
+import StockManagement.Services.productClient;
 import StockManagement.Services.userClient;
 import StockManamgement.Web.Utilities.MessageView;
 import java.io.Serializable;
@@ -26,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import org.primefaces.model.DualListModel;
@@ -49,23 +53,51 @@ public class OrdersBean implements Serializable {
     private int orderUsrCode;
     private int orderDbCr;
     private String branch;
-
-    public void setBranch(String branch) {
-        this.branch = branch;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
     private List<Branch> lb;
     private Map<String,String> branches;
+    private List<Product> lp;
+    private Map<String,String> products;
+    private String product;
 
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    
+    
+    public void setLp(List<Product> lp) {
+        this.lp = lp;
+    }
+
+    public List<Product> getLp() {
+        return lp;
+    }
+
+    public void setProducts(Map<String, String> products) {
+        this.products = products;
+    }
+
+    public Map<String, String> getProducts() {
+        return products;
+    }
     public void setBranches(Map<String, String> branches) {
         this.branches = branches;
     }
 
     public Map<String, String> getBranches() {
         return branches;
+    }
+    
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getBranch() {
+        return branch;
     }
 
    
@@ -202,7 +234,7 @@ public class OrdersBean implements Serializable {
         
         GenericType<List<Branch>> gType2 = new GenericType<List<Branch>>() {
         };
-        
+                
         String compCode = params.get("compId");
         if ( compCode == null || compCode.isEmpty())
             compCode = "1";
@@ -217,7 +249,19 @@ public class OrdersBean implements Serializable {
         
         branches  = new HashMap<String, String>();
         for(int i=0; i<lb.size(); i++){
-            branches.put(lb.get(i).getBrCode().toString(), lb.get(i).getBrName());
+            //branches.put(lb.get(i).getBrCode().toString(), lb.get(i).getBrName());
+            branches.put(lb.get(i).getBrName(), lb.get(i).getBrCode().toString() );
+        }
+        
+        GenericType<List<Product>> prdts = new GenericType<List<Product>>() {
+        };
+        productClient pc = new productClient();
+        lp = pc.getAll(prdts);
+        
+        products  = new HashMap<String, String>();
+        for(int i=0; i<lp.size(); i++){
+            //products.put(lp.get(i).getPrCode().toString(), lp.get(i).getPrName());
+            products.put(lp.get(i).getPrName(),lp.get(i).getPrCode().toString());
         }
        
     }
@@ -225,7 +269,7 @@ public class OrdersBean implements Serializable {
     public void setService(orderClient service) {
         this.service = service;
     }
-
+    
     public void add() {
         Order o = new Order();
         Company c = new Company();

@@ -6,6 +6,7 @@
 package StockManagement.Services;
 
 import StockManamgement.Web.Utilities.Configuration;
+import java.util.List;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.ws.rs.ClientErrorException;
@@ -41,8 +42,20 @@ public class productClient {
     public <T> T add(Object requestEntity, Class<T> responseType) throws ClientErrorException {
         return webTarget.path("add").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
+    
+    public <T> T getAll(GenericType<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
 
     public <T> T getAll(Class<T> responseType, String status) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("all/{0}", new Object[]{status}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+    
+ 
+    public <T> List<T> getAll(GenericType<List<T>> responseType, String status) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("all/{0}", new Object[]{status}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);

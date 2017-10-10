@@ -14,6 +14,7 @@ import StockManagement.ObjectModel.ObjectInterface.IProduct;
 import StockManagement.ObjectModel.Utilities.HibernateUtil;
 import StockManagement.ObjectModel.Utilities.StatusEnum;
 import StockManagement.ObjectModel.ValueObject.Brand;
+import StockManagement.ObjectModel.ValueObject.Order;
 import StockManagement.ObjectModel.ValueObject.Supplier;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,15 @@ public class ProductController implements IProduct {
             return null;
         }
         return products;
+    }
+    
+    @Override
+    public List<Product> getAll() {
+        List<Product> prdts = _session.createQuery("From Product").list();
+        if (null == prdts || prdts.isEmpty()) {
+            return null;
+        }
+        return prdts;
     }
 
     @Override

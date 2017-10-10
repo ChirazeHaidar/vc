@@ -90,4 +90,10 @@ public class SupplierBean {
         MessageView.Info("Info", "Supplier updated successfully.");
     }
     
+    public void delete() {
+        service.delete(selectedSupplier.getSupCode(), String.class);
+        refreshData();
+        MessageView.Info("Info", "Supplier deleted successfully.");
+    }
+    
 }

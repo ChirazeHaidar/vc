@@ -38,7 +38,7 @@
                     </p:commandButton>
                 </p:column>
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete company">
+                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete supplier">
                         <f:setPropertyActionListener value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
                     </p:commandButton>
                 </p:column>
@@ -76,6 +76,33 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog> 
+         <p:dialog header="Supplier Info" widgetVar="infoDialog" appendTo="@(body)" modal="true" 
+                  showEffect="blind" hideEffect="explode" resizable="false">
+            <p:outputPanel id="pnlInfo" style="text-align:center;">
+                <p:panelGrid  columns="2" rendered="#{not empty supplierBean.selectedSupplier}" columnClasses="label,value">
+                    <f:facet name="header">
+                        <h:outputText value="Supplier" />
+                    </f:facet>
+                    <h:outputText value="Code" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supCode}" />
+
+                    <h:outputText value="Name" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supName}" />
+
+                    <h:outputText value="Adress" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supAddress}"/>
+                    
+                    <h:outputText value="Email" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supEmail}"/>
+                    
+                     <h:outputText value="mobile" />
+                     <h:outputText value="#{supplierBean.selectedSupplier.supMobile}"/>
+                     
+                     <h:outputText value="Tel" />
+                     <h:outputText value="#{supplierBean.selectedSupplier.supTel}"/>
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:dialog>
         <p:dialog header="Edit supplier" widgetVar="editDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
             <h:form id="formUpdate"> 
                 <p:outputPanel id="editPanel" style="text-align:center;">
@@ -102,7 +129,40 @@
                     </p:blockUI>
                 </p:outputPanel>
             </h:form>
-        </p:dialog> 
+</p:dialog>             
+            <p:dialog header="Delete supplier" widgetVar="deleteDialog" appendTo="@(body)" modal="true" 
+                  showEffect="blind" hideEffect="explode" resizable="false">
+            <p:outputPanel id="deletePanel" style="text-align:center;">
+                <p:panelGrid  columns="2" rendered="#{not empty supplierBean.selectedSupplier}" columnClasses="label,value">
+                    <f:facet name="header">
+                        <h:outputText value="Are you sure you want to delete?" />
+                    </f:facet>
+                    <h:outputText value="Code" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supCode}" />
+
+                    <h:outputText value="Name" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supName}" />
+
+                    <h:outputText value="Adress" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supAddress}"/>
+                    
+                    <h:outputText value="Email" />
+                    <h:outputText value="#{supplierBean.selectedSupplier.supEmail}"/>
+                    
+                     <h:outputText value="mobile" />
+                     <h:outputText value="#{supplierBean.selectedSupplier.supMobile}"/>
+                     
+                     <h:outputText value="Tel" />
+                     <h:outputText value="#{supplierBean.selectedSupplier.supTel}"/>
+                </p:panelGrid>
+                <p:commandButton id="btnDelete" update=":mainForm:supplierTable" oncomplete="PF('deleteDialog').hide();" value="Delete?" icon="ui-icon-circle-check" actionListener="#{supplierBean.delete}"  />
+                <p:blockUI block=":deletePanel" trigger=":btnDelete">
+                    LOADING<br />
+                    <p:graphicImage name="./images/45.gif" />
+                </p:blockUI>
+            </p:outputPanel>
+        </p:dialog>
+        
     </ui:define>
 
 </ui:composition>

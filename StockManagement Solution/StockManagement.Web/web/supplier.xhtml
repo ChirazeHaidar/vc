@@ -1,108 +1,86 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./../master/main.xhtml"
+                template="./master/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="mainForm">
-            <p:dataTable id="supplierTable" value="#{supplierBean.suppliers}" var="supplier" paginator="true" rows="10" 
-                         selectionMode="single" selection="#{supplierBean.selectedSupplier}" rowKey="#{supplier.supCode }"
-                         rowsPerPageTemplate="5,10,20" 
+        <h:form id="form">
+
+            <p:dataTable id="supplierTable" value="#{supplierBean.suppliers}" var="itemSupplier" paginator="true" rows="10" 
+
+                         rowsPerPageTemplate="5,10,20"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">  
                 <f:facet name="header">  
                     <div align="left">	
                         <p:commandButton onclick="PF('newDialog').show();" type="button" value="New" icon="ui-icon-plus"  />
                     </div>
                 </f:facet> 
-                <p:column headerText="Code" class="tableHeader">${supplier.supCode}</p:column>
 
-                <p:column headerText="Name" class="tableHeader" >${supplier.supName}</p:column>
-                <p:column headerText="Mobile" class="tableHeader">${supplier.supMobile}</p:column>
-                <p:column headerText="Tel" class="tableHeader">${supplier.supTel}</p:column>
-                <p:column headerText="Addresse" class="tableHeader">${supplier.supAddress}</p:column>
-                <p:column headerText="Email" class="tableHeader">${supplier.supEmail}</p:column>
+                <p:column headerText="Code">${itemSupplier.SupCode}</p:column>
+                <p:column headerText="Name">${itemSupplier.SupName}</p:column>
+                <p:column headerText="Tel">${itemSupplier.SupTel}</p:column>
+                <p:column headerText="Mobile">${itemSupplier.SupMobile}</p:column>
+                <p:column headerText="Address">${itemSupplier.SupAddress}</p:column>
+				<p:column headerText="Email">${itemSupplier.SupEmail}</p:column>
                 
-               
                 <p:column style="width:32px;text-align: center">
-
-                    <p:commandButton update=":pnlInfo" oncomplete="PF('infoDialog').show()" icon="ui-icon-search" title="View">
-                        <f:setPropertyActionListener  value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
+                    <p:commandButton update=":newPanel" oncomplete="PF('infoDialog').show()" icon="ui-icon-search" title="View">
+                        <f:setPropertyActionListener  value="#{itemSupplier}" target="#{supplierBean.selectedSupplier}" />
                     </p:commandButton>
                 </p:column>
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":formUpdate:editPanel" icon="ui-icon ui-icon-pencil" oncomplete="PF('editDialog').show()" title="Edit supplier">
-                        <f:setPropertyActionListener value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
+                    <p:commandButton update=":form:editPanel" icon="ui-icon ui-icon-pencil" oncomplete="PF('editDialog').show()" title="Edit supplier">
+                        <f:setPropertyActionListener value="#{itemSupplier}" target="#{supplierBean.selectedSupplier}" />
                     </p:commandButton>
                 </p:column>
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete company">
-                        <f:setPropertyActionListener value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
+                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete supplier">
+                        <f:setPropertyActionListener value="#{itemSupplier}" target="#{supplierBean.selectedSupplier}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
-            <p:blockUI block=":mainForm:supplierTable" trigger=":mainForm:supplierTable">
-                LOADING<br />
-                <p:graphicImage name="./images/45.gif" />
-            </p:blockUI>
-        </h:form>
-        <p:dialog  header="New supplier" widgetVar="newDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
-            <h:form id="formAdd">  
+            <p:dialog  header="New supplier" widgetVar="newDialog" modal="true" height="150" resizable="false">
                 <p:outputPanel id="newPanel" style="text-align:center;">
-                    <p:panelGrid  columns="2"  columnClasses="label,value" >
+                    <p:panelGrid  columns="2"  columnClasses="label,value">
                         <h:outputText value="Name" />
-                        <p:inputText id="supName" value="#{supplierBean.newSupplier.supName}" />
+                        <p:inputText id="brName" value="#{supplierBean.newSupplier.SupName}" />
 
                         <h:outputText value="Address" />
-                        <p:inputText id="supAddress" value="#{supplierBean.newSupplier.supAddress}" />
-
-                        <h:outputText value="Email" />
-                        <p:inputText id="supEmail" value="#{supplierBean.newSupplier.supEmail}" />
-
-                        <h:outputText value="mobile" />
-                        <p:inputText id="supMobile" value="#{supplierBean.newSupplier.supMobile}" />
-
-                        <h:outputText value="Tel" />
-                        <p:inputText id="supTel" value="#{supplierBean.newSupplier.supTel}" />
-
+                        <p:inputText id="brAddress" value="#{supplierBean.newSupplier.SupAddress}" />
+                        
+                          <h:outputText value="Tel" />
+                          <p:inputText id="brTel" value="#{supplierBean.newSupplier.SupTel}" />
+                          
                     </p:panelGrid>
-                    <p:commandButton id="btnAdd" update=":mainForm:supplierTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{supplierBean.add}"  />
-                    <p:blockUI block=":formAdd:newPanel" trigger=":formAdd:btnAdd">
+                    <p:commandButton id="btnAdd" update=":form:supplierTable" oncomplete="PF('newDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{supplierBean.add}"  />
+                    <p:blockUI block=":form:newPanel" trigger=":form:btnAdd">
                         LOADING<br />
                         <p:graphicImage name="./images/45.gif" />
                     </p:blockUI>
                 </p:outputPanel>
-            </h:form>
-        </p:dialog> 
-        <p:dialog header="Edit supplier" widgetVar="editDialog" appendTo="@(body)" modal="true" height="220" resizable="false">
-            <h:form id="formUpdate"> 
-                <p:outputPanel id="editPanel" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{supplierBean.selectedSupplier != null}"  columnClasses="label,value">
-                        <h:outputText value="Name" />
-                        <p:inputText id="editsupName" value="#{supplierBean.selectedSupplier.supName}" />
+            </p:dialog> 
+            <p:dialog header="Company Info" widgetVar="infoDialog" appendTo="@(body)" modal="true" 
+                  showEffect="blind" hideEffect="explode" resizable="false">
+            <p:outputPanel id="pnlInfo" style="text-align:center;">
+                <p:panelGrid  columns="2" rendered="#{not empty companyBean.selectedCompany}" columnClasses="label,value">
+                    <f:facet name="header">
+                        <h:outputText value="Company" />
+                    </f:facet>
+                    <h:outputText value="Code" />
+                    <h:outputText value="#{companyBean.selectedCompany.compCode}" />
 
-                        <h:outputText value="Address" />
-                        <p:inputText id="editsupAddress" value="#{supplierBean.selectedSupplier.supAddress}" />
+                    <h:outputText value="Name" />
+                    <h:outputText value="#{companyBean.selectedCompany.compName}" />
 
-                        <h:outputText value="Email" />
-                        <p:inputText id="editsupEmail" value="#{supplierBean.selectedSupplier.supEmail}" />
-
-                        <h:outputText value="mobile" />
-                        <p:inputText id="editsupMobile" value="#{supplierBean.selectedSupplier.supMobile}" />
-
-                        <h:outputText value="Tel" />
-                        <p:inputText id="editsupTel" value="#{supplierBean.selectedSupplier.supTel}" />
-                    </p:panelGrid>
-                    <p:commandButton   id="btnUpdate" update=":mainForm:supplierTable" oncomplete="PF('editDialog').hide();" value="Save" icon="ui-icon-circle-check" actionListener="#{supplierBean.update}"  />
-                    <p:blockUI block=":formUpdate:editPanel" trigger=":formUpdate:btnUpdate">
-                        LOADING<br />
-                        <p:graphicImage name="./images/45.gif" />
-                    </p:blockUI>
-                </p:outputPanel>
-            </h:form>
-        </p:dialog> 
+                    <h:outputText value="Description" />
+                    <h:outputText value="#{companyBean.selectedCompany.compDesc}"/>
+                </p:panelGrid>
+            </p:outputPanel>
+        </p:dialog>
+        </h:form>
     </ui:define>
 
 </ui:composition>

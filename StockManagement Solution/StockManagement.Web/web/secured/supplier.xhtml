@@ -24,16 +24,23 @@
                 <p:column headerText="Tel" class="tableHeader">${supplier.supTel}</p:column>
                 <p:column headerText="Addresse" class="tableHeader">${supplier.supAddress}</p:column>
                 <p:column headerText="Email" class="tableHeader">${supplier.supEmail}</p:column>
+                
+               
+                <p:column style="width:32px;text-align: center">
+
+                    <p:commandButton update=":pnlInfo" oncomplete="PF('infoDialog').show()" icon="ui-icon-search" title="View">
+                        <f:setPropertyActionListener  value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
+                    </p:commandButton>
+                </p:column>
                 <p:column style="width:32px;text-align: center">
                     <p:commandButton update=":formUpdate:editPanel" icon="ui-icon ui-icon-pencil" oncomplete="PF('editDialog').show()" title="Edit supplier">
                         <f:setPropertyActionListener value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
                     </p:commandButton>
                 </p:column>
                 <p:column style="width:32px;text-align: center">
-                    <p:commandButton icon="ui-icon ui-icon-search"  action="product" title="View products">
-                        
-                        <f:param id="sup_id"  name="sup_id" value="#{supplier.supCode}"  />
-                    </p:commandButton >
+                    <p:commandButton update=":deletePanel" icon="ui-icon-trash" oncomplete="PF('deleteDialog').show()" title="Delete company">
+                        <f:setPropertyActionListener value="#{supplier}" target="#{supplierBean.selectedSupplier}" />
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
             <p:blockUI block=":mainForm:supplierTable" trigger=":mainForm:supplierTable">

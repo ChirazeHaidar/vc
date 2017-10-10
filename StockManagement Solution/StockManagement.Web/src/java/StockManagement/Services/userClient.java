@@ -45,7 +45,7 @@ public class userClient {
     }
 
     public <T> T removeRole(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("removeRole").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("removeRole").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public <T> T getAll(GenericType<T> responseType) throws ClientErrorException {
@@ -65,7 +65,7 @@ public class userClient {
     
 
     public <T> T assignRole(Object requestEntity, Class<T> responseType) throws ClientErrorException {
-        return webTarget.path("assignRole").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+        return webTarget.path("assignRole").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
     }
 
     public <T> T getByBranch(Class<T> responseType, String brCode) throws ClientErrorException {
@@ -86,10 +86,15 @@ public class userClient {
         return webTarget.path("deleteById").request(javax.ws.rs.core.MediaType.TEXT_PLAIN).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.TEXT_PLAIN), responseType);
     }
 
-    public <T> T getRoles(Class<T> responseType, String usrCode) throws ClientErrorException {
+    public <T> T getRoles(GenericType<T> responseType, String usrCode) throws ClientErrorException {
+       try{
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("roles/{0}", new Object[]{usrCode}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+         }catch (Exception ex){
+           System.out.println(ex);
+       }
+        return null;
     }
     
       public <T> T getAllRoles(GenericType<T> responseType) throws ClientErrorException {
